@@ -3,201 +3,91 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0d0c0b">
-<meta name="description" content="آکادمی رایگان خیال هنر؛ ثبت درخواست عضویت و دیدن آثار هنرجویان تأییدشده.">
+<meta name="theme-color" content="#f5f4ef">
+<meta name="description" content="آکادمی رایگان خیال هنر؛ یادگیری، عضویت و نمایش آثار هنرجویان تأییدشده.">
 <link rel="canonical" href="https://abbasali-code.github.io/khial_honar/academy.html">
-<title>آکادمی خیال هنر | عضویت رایگان و آثار هنرجویان</title>
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<title>آکادمی خیال هنر | یاد بگیر و خلق کن</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0d0c0b;--panel:#171411;--panel2:#201b17;--line:#332b24;--text:#f4eee7;--muted:#bdb2a7;--accent:#ff6b13;--good:#55c78a;--bad:#ff7777;--display:"Lalezar",Vazirmatn,sans-serif;--body:Vazirmatn,Tahoma,sans-serif}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.9}a{color:inherit;text-decoration:none}button,input,textarea,select{font:inherit}button{cursor:pointer}.wrap{width:min(1120px,92%);margin:auto}.top{border-bottom:1px solid var(--line);background:#0d0c0beF;position:sticky;top:0;z-index:5;backdrop-filter:blur(14px)}.nav{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}.brand{font:30px var(--display);color:var(--text)}.brand b{color:var(--accent);font-weight:400}.navlinks{display:flex;gap:10px;flex-wrap:wrap}.navlinks a,.navlinks button{padding:8px 14px;border:1px solid transparent;border-radius:12px;background:none;color:var(--muted);font-size:14px}.navlinks a:hover,.navlinks button:hover{border-color:var(--line);color:var(--accent)}.hero{padding:76px 0 62px;background:radial-gradient(ellipse at 80% 20%,#ff6b131c,transparent 55%)}.eyebrow{color:var(--accent);font-weight:700;font-size:13px}.hero h1{font:clamp(44px,8vw,84px)/1.35 var(--display);margin:12px 0}.hero p{max-width:650px;color:var(--muted);font-size:17px;margin:0}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}.btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--accent);border-radius:13px;padding:11px 20px;background:var(--accent);color:#1b0d04;font-weight:800}.btn.ghost{background:transparent;color:var(--text);border-color:var(--line)}.section{padding:50px 0}.heading{display:flex;justify-content:space-between;align-items:end;gap:18px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:24px}.heading h2{font:38px var(--display);margin:0}.heading p{color:var(--muted);margin:0;font-size:13px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.work{background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden}.work img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:var(--panel2)}.work .inside{padding:16px}.work h3{font:24px var(--display);margin:0 0 4px}.work p{margin:0;color:var(--muted);font-size:13px}.work .by{color:var(--accent);font-size:12px;margin-bottom:8px}.empty{border:1px dashed var(--line);border-radius:18px;padding:34px;text-align:center;color:var(--muted);grid-column:1/-1}.formbox,.adminbox{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:26px}.formbox{max-width:800px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}.field label{display:block;margin:12px 0 6px;font-size:13px;color:var(--muted)}.field input,.field textarea,.field select{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:12px;color:var(--text);padding:12px 13px;outline:none}.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--accent)}.field textarea{min-height:105px;resize:vertical}.full{grid-column:1/-1}.note{color:var(--muted);font-size:12px}.status{min-height:26px;margin:12px 0 0;font-size:13px}.status.ok{color:var(--good)}.status.err{color:var(--bad)}.adminbox{margin-top:24px}.adminbox[hidden],.hidden{display:none!important}.adminhead{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.adminhead h2{font:30px var(--display);margin:0}.adminlist{display:grid;gap:12px;margin-top:18px}.application,.studentrow{border:1px solid var(--line);border-radius:14px;padding:15px;background:var(--bg)}.application h3{margin:0;font-size:16px}.application p{margin:4px 0;color:var(--muted);font-size:13px;overflow-wrap:anywhere}.rowactions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.smallbtn{border:1px solid var(--line);border-radius:10px;padding:7px 13px;background:var(--panel2);color:var(--text);font-size:12px}.smallbtn.good{border-color:#2b7650;color:#85e3ad}.smallbtn.bad{border-color:#7e3535;color:#ff9999}.smallbtn:disabled{opacity:.5;cursor:wait}.adminforms{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}.adminforms form{border:1px solid var(--line);border-radius:15px;padding:16px}.adminforms h3{font:23px var(--display);margin:0}.pill{display:inline-block;border:1px solid var(--line);border-radius:30px;padding:2px 10px;color:var(--muted);font-size:11px}.pill.pending{color:#ffd08a}.pill.approved{color:var(--good)}.pill.rejected{color:var(--bad)}footer{border-top:1px solid var(--line);padding:24px 0;color:var(--muted);font-size:12px}.hp{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important}
-@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.adminforms{grid-template-columns:1fr}}@media(max-width:560px){.grid,.formgrid{grid-template-columns:1fr}.hero{padding:52px 0}.section{padding:36px 0}.formbox,.adminbox{padding:18px}.nav{padding:10px 0}.heading h2{font-size:31px}}
+:root{color-scheme:light;--paper:#f5f4ef;--surface:#fff;--ink:#172b27;--muted:#687772;--line:#e3e8e2;--green:#176b55;--green2:#0f4e40;--mint:#dff2e9;--lime:#d6ef8a;--danger:#b83f43;--shadow:0 18px 55px #193b2b12;--radius:24px;font-family:Vazirmatn,Tahoma,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:var(--paper);color:var(--ink);font-family:inherit;line-height:1.9}a{color:inherit;text-decoration:none}button,input,textarea,select{font:inherit}button{cursor:pointer}.container{width:min(1160px,calc(100% - 40px));margin:auto}
+.site-header{position:sticky;top:0;z-index:20;background:#f5f4efeb;border-bottom:1px solid #e4e8e1;backdrop-filter:blur(16px)}.nav{height:78px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{font-weight:900;font-size:24px;letter-spacing:-1px}.brand-mark{display:inline-grid;place-items:center;width:38px;height:38px;margin-left:8px;border-radius:13px;background:var(--green);color:#fff;font-size:20px;vertical-align:middle}.nav-links{display:flex;align-items:center;gap:7px}.nav-links a,.nav-links button{border:0;background:transparent;color:var(--muted);padding:9px 13px;border-radius:12px;font-size:13px}.nav-links a:hover,.nav-links button:hover{background:var(--mint);color:var(--green)}.nav-links .nav-cta{background:var(--green);color:white;padding-inline:17px}
+.hero{padding:76px 0 58px;overflow:hidden}.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:45px}.kicker{display:inline-flex;align-items:center;gap:8px;background:var(--mint);color:var(--green);border-radius:40px;padding:6px 13px;font-size:12px;font-weight:800}.kicker:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green)}h1,h2,h3,p{margin-top:0}.hero h1{font-size:clamp(38px,6vw,70px);line-height:1.38;letter-spacing:-2px;margin:18px 0 12px;font-weight:900}.hero h1 span{color:var(--green)}.hero-copy{max-width:600px;color:var(--muted);font-size:16px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}.button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;border:1px solid var(--green);border-radius:14px;padding:10px 20px;background:var(--green);color:#fff;font-weight:800;font-size:13px;transition:.2s}.button:hover{background:var(--green2);transform:translateY(-2px)}.button.secondary{background:transparent;color:var(--green)}.button.secondary:hover{background:var(--mint)}.button:disabled{opacity:.55;cursor:wait;transform:none}.hero-art{position:relative;min-height:360px;border-radius:34px;background:var(--green);padding:28px;display:flex;align-items:end;overflow:hidden;box-shadow:var(--shadow)}.hero-art:before,.hero-art:after{content:"";position:absolute;border:1px solid #ffffff2b;border-radius:50%}.hero-art:before{width:310px;height:310px;top:-100px;right:-50px}.hero-art:after{width:210px;height:210px;top:-50px;right:0}.art-shape{position:absolute;left:12%;top:14%;width:170px;height:170px;border-radius:45% 55% 64% 36%;background:var(--lime);transform:rotate(-22deg);box-shadow:30px 25px 0 #ffffff20}.art-dot{position:absolute;left:18%;top:17%;width:24px;height:24px;background:#fff;border-radius:50%}.art-note{position:relative;z-index:1;max-width:270px;background:#ffffffed;border-radius:20px;padding:18px 20px;color:var(--ink);box-shadow:var(--shadow)}.art-note strong{display:block;font-size:18px}.art-note small{color:var(--muted)}
+.section{padding:48px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:24px}.section-head h2{font-size:clamp(26px,4vw,38px);letter-spacing:-1px;margin:0;font-weight:900}.section-head p{color:var(--muted);font-size:13px;margin:5px 0 0}.gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.work-card{background:var(--surface);border:1px solid var(--line);border-radius:21px;overflow:hidden;box-shadow:0 5px 20px #1a34240a;transition:.22s}.work-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}.work-image{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#e8eee8}.work-body{padding:17px 18px 19px}.work-author{font-size:11px;color:var(--green);font-weight:800}.work-body h3{font-size:19px;margin:5px 0;font-weight:800}.work-body p{font-size:12px;color:var(--muted);margin:0}.work-link{display:inline-block;margin-top:12px;color:var(--green);font-size:12px;font-weight:800}.empty{grid-column:1/-1;text-align:center;padding:38px 20px;border:1px dashed #c9d5cb;border-radius:20px;color:var(--muted);background:#ffffff80}
+.apply-wrap{display:grid;grid-template-columns:.72fr 1.28fr;gap:28px;align-items:start}.apply-aside{position:sticky;top:110px;background:var(--green);color:#fff;padding:28px;border-radius:var(--radius);overflow:hidden}.apply-aside h2{font-size:30px;line-height:1.5;margin:0 0 10px}.apply-aside p{color:#e0eee8;font-size:13px}.benefit{display:flex;gap:10px;align-items:center;margin-top:14px;font-size:12px}.benefit i{display:grid;place-items:center;width:26px;height:26px;border-radius:9px;background:#ffffff20;font-style:normal}.form-card,.admin-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}.form-title{font-size:20px;font-weight:900;margin-bottom:5px}.form-subtitle{color:var(--muted);font-size:12px;margin-bottom:18px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}.field{min-width:0;margin-bottom:14px}.field label{display:block;margin-bottom:6px;font-size:12px;font-weight:800;color:#43564f}.required{color:var(--danger)}.field input,.field textarea,.field select{display:block;width:100%;min-height:47px;padding:11px 13px;border:1px solid #dfe6df;border-radius:12px;background:#fbfcfa;color:var(--ink);outline:none;transition:.18s;font-size:13px}.field textarea{min-height:105px;resize:vertical}.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--green);box-shadow:0 0 0 3px #176b5518;background:#fff}.field input::placeholder,.field textarea::placeholder{color:#a4afa8}.full{grid-column:1/-1}.hint{font-size:11px;color:var(--muted);margin:0 0 14px}.form-status{min-height:25px;margin:12px 0 0;font-size:12px;font-weight:700}.form-status.ok{color:var(--green)}.form-status.error{color:var(--danger)}.hp{position:absolute!important;top:-10000px!important;right:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important}
+.admin-area{padding:40px 0 70px}.admin-card{margin-bottom:18px}.admin-heading{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}.admin-heading h2{font-size:24px;margin:0;font-weight:900}.admin-list{display:grid;gap:12px;margin-top:16px}.application,.student-item{border:1px solid var(--line);border-radius:16px;padding:16px;background:#fbfcfa}.application h3{font-size:16px;margin:0 0 5px}.application p{font-size:12px;color:var(--muted);margin:3px 0;overflow-wrap:anywhere}.status-pill{display:inline-block;border-radius:30px;padding:3px 10px;font-size:10px;background:#edf0ed;color:#53625b}.status-pill.pending{background:#fff1d5;color:#916315}.status-pill.approved{background:#def4e8;color:#176b55}.status-pill.rejected{background:#fde8e8;color:#a33b40}.actions-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.mini-button{border:1px solid var(--line);border-radius:10px;padding:7px 12px;background:#fff;color:var(--ink);font-size:11px;font-weight:700}.mini-button.approve{color:var(--green);border-color:#b9ddc9}.mini-button.reject{color:var(--danger);border-color:#f0c8c8}.admin-forms{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}.admin-forms form{border:1px solid var(--line);border-radius:17px;padding:18px}.admin-forms h3{font-size:18px;font-weight:900;margin:0 0 12px}.check-field{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}.check-field input{accent-color:var(--green);width:17px;height:17px}.footer{padding:28px 0;border-top:1px solid var(--line);color:var(--muted);font-size:12px}.footer-inner{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr .8fr;gap:22px}.gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.apply-wrap{grid-template-columns:1fr}.apply-aside{position:relative;top:auto}.apply-aside h2{font-size:25px}.hero-art{min-height:300px}}
+@media(max-width:620px){.container{width:min(100% - 28px,560px)}.nav{height:auto;min-height:68px;align-items:center;flex-wrap:wrap;padding:10px 0}.brand{font-size:20px}.brand-mark{width:33px;height:33px}.nav-links{width:100%;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}.nav-links a,.nav-links button{padding:8px 4px;font-size:11px;text-align:center}.hero{padding:42px 0 30px}.hero-grid{grid-template-columns:1fr}.hero h1{font-size:42px;letter-spacing:-1px}.hero-copy{font-size:14px}.hero-art{min-height:220px;border-radius:24px}.art-shape{width:125px;height:125px}.art-note{padding:12px 15px}.section{padding:34px 0}.section-head{align-items:start;flex-direction:column;gap:7px}.gallery{grid-template-columns:1fr}.work-image{aspect-ratio:16/10}.apply-aside,.form-card,.admin-card{padding:20px;border-radius:19px}.form-grid,.admin-forms{grid-template-columns:1fr}.full{grid-column:auto}.form-title{font-size:18px}.admin-area{padding:25px 0 45px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
 </style>
 </head>
 <body>
-<header class="top"><div class="wrap nav">
-<a class="brand" href="./index.html">خیال <b>هنر</b></a>
-<nav class="navlinks" aria-label="ناوبری آکادمی"><a href="./index.html">صفحه اصلی</a><a href="#students">آثار هنرجویان</a><a href="#apply">عضویت رایگان</a><button id="adminOpen" type="button">مدیریت</button></nav>
+<header class="site-header"><div class="container nav">
+<a class="brand" href="./index.html"><span class="brand-mark">خ</span>خیال هنر</a>
+<nav class="nav-links" aria-label="ناوبری اصلی"><a href="./index.html">صفحه اصلی</a><a href="#gallery">گالری آثار</a><a href="#apply">عضویت رایگان</a><button id="adminOpen" type="button">مدیریت</button></nav>
 </div></header>
 <main>
-<section class="hero"><div class="wrap">
-<span class="eyebrow">KHIAL HONAR · ACADEMY</span>
-<h1>یاد بگیر، خلق کن،<br>به نمایش بگذار.</h1>
-<p>آکادمی خیال هنر فضایی برای یادگیری و دیده‌شدن آثار هنرجویان است. عضویت رایگان است و آثار فقط پس از بررسی و تأیید مدیریت در گالری عمومی نمایش داده می‌شوند.</p>
-<div class="actions"><a class="btn" href="#apply">درخواست عضویت رایگان</a><a class="btn ghost" href="#students">دیدن آثار هنرجویان</a></div>
+<section class="hero"><div class="container hero-grid">
+<div><span class="kicker">آکادمی رایگان خیال هنر</span><h1>ایده‌ات را به <span>اثر</span> تبدیل کن.</h1><p class="hero-copy">اینجا جایی برای یادگیری، تجربه‌کردن و ساختن است. به جمع هنرجویان خیال هنر بپیوند، مهارتت را رشد بده و بهترین آثارت را با دیگران به اشتراک بگذار.</p><div class="hero-actions"><a class="button" href="#apply">شروع عضویت رایگان ←</a><a class="button secondary" href="#gallery">دیدن گالری آثار</a></div></div>
+<div class="hero-art" aria-hidden="true"><div class="art-shape"></div><div class="art-dot"></div><div class="art-note"><strong>خلق کن؛ حتی با یک ایده کوچک.</strong><small>مسیر خلاقیت از همین‌جا شروع می‌شود.</small></div></div>
 </div></section>
-<section class="section" id="students"><div class="wrap">
-<div class="heading"><h2>گالری هنرجویان</h2><p>فقط آثار منتشرشده و تأییدشده نمایش داده می‌شوند.</p></div>
-<div class="grid" id="worksGrid"><div class="empty">در حال دریافت آثار…</div></div>
-</div></section>
-<section class="section" id="apply"><div class="wrap">
-<div class="heading"><h2>درخواست عضویت</h2><p>عضویت و شرکت در دوره‌ها کاملاً رایگان است.</p></div>
-<form class="formbox" id="applicationForm">
-<div class="formgrid">
-<div class="field"><label for="full_name">نام و نام خانوادگی *</label><input id="full_name" name="full_name" maxlength="100" required autocomplete="name"></div>
-<div class="field"><label for="phone">شماره تلفن *</label><input id="phone" name="phone" type="tel" maxlength="20" required autocomplete="tel" placeholder="مثلاً 0912…"></div>
-<div class="field"><label for="rubika_id">شناسه روبیکا *</label><input id="rubika_id" name="rubika_id" maxlength="80" required placeholder="آیدی یا شناسه روبیکا"></div>
-<div class="field"><label for="age">سن</label><input id="age" name="age" type="number" min="7" max="100" inputmode="numeric"></div>
-<div class="field"><label for="city">شهر</label><input id="city" name="city" maxlength="80" autocomplete="address-level2"></div>
-<div class="field"><label for="course">علاقه‌مندی *</label><select id="course" name="course" required><option value="">انتخاب کن…</option><option>طراحی</option><option>نقاشی</option><option>گرافیک</option><option>سایر</option></select></div>
-<div class="field full"><label for="sample_work_url">لینک نمونه‌کار (اختیاری)</label><input id="sample_work_url" name="sample_work_url" type="url" maxlength="500" placeholder="https://…"></div>
-<div class="field full"><label for="message">توضیحات یا هدفت از عضویت (اختیاری)</label><textarea id="message" name="message" maxlength="1000"></textarea></div>
-<div class="hp" aria-hidden="true"><label for="website">این فیلد را خالی بگذار</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+<section class="section" id="gallery"><div class="container"><div class="section-head"><div><h2>ویترین هنرجویان</h2><p>آثار منتشرشده پس از بررسی مدیریت در این بخش قرار می‌گیرند.</p></div><span class="kicker">Student Gallery</span></div><div class="gallery" id="worksGrid"><div class="empty">در حال دریافت آثار…</div></div></div></section>
+<section class="section" id="apply"><div class="container apply-wrap">
+<aside class="apply-aside"><span class="kicker" style="background:#ffffff20;color:#fff">ثبت‌نام باز است</span><h2>قدم اول را بردار؛ یادگیری رایگان است.</h2><p>فرم را با دقت تکمیل کن. درخواستت بررسی می‌شود و نتیجه از راه ارتباطی ثبت‌شده به تو اطلاع داده خواهد شد.</p><div class="benefit"><i>✓</i> بدون هزینه عضویت و شرکت در دوره</div><div class="benefit"><i>✓</i> امکان ارائه و نمایش آثار منتخب</div><div class="benefit"><i>✓</i> بررسی درخواست توسط مدیریت</div></aside>
+<form class="form-card" id="applicationForm"><div class="form-title">فرم درخواست عضویت</div><div class="form-subtitle">موارد ستاره‌دار الزامی هستند.</div>
+<div class="form-grid">
+<div class="field"><label for="full_name">نام و نام خانوادگی <span class="required">*</span></label><input id="full_name" name="full_name" maxlength="100" required autocomplete="name" placeholder="نام کاملت"></div>
+<div class="field"><label for="phone">شماره تلفن <span class="required">*</span></label><input id="phone" name="phone" type="tel" maxlength="20" required autocomplete="tel" inputmode="tel" placeholder="0912…"></div>
+<div class="field"><label for="rubika_id">شناسه روبیکا <span class="required">*</span></label><input id="rubika_id" name="rubika_id" maxlength="80" required placeholder="شناسه یا آیدی روبیکا"></div>
+<div class="field"><label for="age">سن</label><input id="age" name="age" type="number" min="7" max="100" inputmode="numeric" placeholder="مثلاً ۱۵"></div>
+<div class="field"><label for="city">شهر محل سکونت</label><input id="city" name="city" maxlength="80" autocomplete="address-level2" placeholder="نام شهر"></div>
+<div class="field"><label for="course">زمینه مورد علاقه <span class="required">*</span></label><select id="course" name="course" required><option value="">انتخاب زمینه…</option><option>طراحی</option><option>نقاشی</option><option>گرافیک</option><option>هنر دیجیتال</option><option>سایر</option></select></div>
+<div class="field full"><label for="sample_work_url">لینک نمونه‌کار <span style="color:var(--muted);font-weight:400">(اختیاری)</span></label><input id="sample_work_url" name="sample_work_url" type="url" maxlength="500" placeholder="https://example.com"></div>
+<div class="field full"><label for="message">درباره خودت و هدفت از عضویت</label><textarea id="message" name="message" maxlength="1000" placeholder="دوست داری چه چیزی یاد بگیری؟"></textarea></div>
+<div class="hp" aria-hidden="true"><label for="website">وب‌سایت</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
 </div>
-<button class="btn" id="submitApplication" type="submit">ثبت درخواست رایگان</button>
-<p class="note">با ثبت درخواست، اطلاعات تماس فقط برای بررسی عضویت استفاده می‌شود و در گالری عمومی نمایش داده نخواهد شد.</p>
-<p class="status" id="formStatus" role="status" aria-live="polite"></p>
+<p class="hint">اطلاعات تماس و جزئیات درخواستت در گالری عمومی نمایش داده نمی‌شود.</p><button class="button" id="submitApplication" type="submit">ارسال درخواست عضویت</button><p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
 </form>
 </div></section>
-<section class="section hidden" id="adminSection"><div class="wrap">
-<div class="adminbox" id="loginBox">
-<div class="adminhead"><h2>ورود مدیر آکادمی</h2><button class="smallbtn" id="closeAdmin" type="button">بستن</button></div>
-<form id="loginForm" class="formgrid">
-<div class="field"><label for="adminEmail">ایمیل مدیر</label><input id="adminEmail" type="email" autocomplete="username" required></div>
-<div class="field"><label for="adminPassword">رمز عبور</label><input id="adminPassword" type="password" autocomplete="current-password" required></div>
-<div class="full"><button class="btn" type="submit" id="loginButton">ورود امن</button><p class="status" id="loginStatus" role="status"></p></div>
-</form>
-</div>
-<div class="adminbox hidden" id="dashboard">
-<div class="adminhead"><h2>مدیریت آکادمی</h2><button class="smallbtn" id="logout" type="button">خروج</button></div>
-<p class="note">اطلاعات درخواست‌ها فقط برای مدیر مجاز قابل مشاهده است.</p>
-<div class="heading"><h2>درخواست‌های عضویت</h2><button class="smallbtn" id="refreshApps" type="button">بروزرسانی</button></div>
-<div class="adminlist" id="applicationsList"><div class="empty">در حال دریافت…</div></div>
-<div class="adminforms">
-<form id="studentForm">
-<h3>افزودن هنرجو</h3>
-<div class="field"><label for="studentName">نام نمایشی هنرجو</label><input id="studentName" maxlength="100" required></div>
-<div class="field"><label for="studentBio">معرفی کوتاه</label><textarea id="studentBio" maxlength="1000"></textarea></div>
-<div class="field"><label for="studentAvatar">لینک تصویر پروفایل (اختیاری)</label><input id="studentAvatar" type="url" maxlength="500"></div>
-<div class="field"><label><input id="studentPublished" type="checkbox" style="width:auto"> نمایش عمومی هنرجو</label></div>
-<button class="btn" type="submit">افزودن هنرجو</button><p class="status" id="studentStatus" role="status"></p>
-</form>
-<form id="workForm">
-<h3>افزودن اثر هنرجو</h3>
-<div class="field"><label for="workStudent">هنرجو</label><select id="workStudent" required><option value="">ابتدا هنرجو را اضافه کن</option></select></div>
-<div class="field"><label for="workTitle">عنوان اثر</label><input id="workTitle" maxlength="120" required></div>
-<div class="field"><label for="workImage">لینک تصویر اثر</label><input id="workImage" type="url" maxlength="500" required></div>
-<div class="field"><label for="workUrl">لینک پروژه (اختیاری)</label><input id="workUrl" type="url" maxlength="500"></div>
-<div class="field"><label for="workDescription">توضیحات</label><textarea id="workDescription" maxlength="1200"></textarea></div>
-<div class="field"><label><input id="workPublished" type="checkbox" style="width:auto"> انتشار عمومی اثر</label></div>
-<button class="btn" type="submit">ثبت اثر</button><p class="status" id="workStatus" role="status"></p>
-</form>
-</div>
-<div class="heading" style="margin-top:28px"><h2>هنرجویان ثبت‌شده</h2></div>
-<div class="adminlist" id="studentsList"></div>
-</div>
-</div></section>
+<section class="admin-area" id="adminSection" hidden><div class="container">
+<div class="admin-card" id="loginBox"><div class="admin-heading"><h2>ورود مدیریت</h2><button class="mini-button" id="closeAdmin" type="button">بستن</button></div><form id="loginForm" class="form-grid" style="margin-top:16px"><div class="field"><label for="adminEmail">ایمیل مدیر</label><input id="adminEmail" type="email" autocomplete="username" required></div><div class="field"><label for="adminPassword">رمز عبور</label><input id="adminPassword" type="password" autocomplete="current-password" required></div><div class="full"><button class="button" id="loginButton" type="submit">ورود به پنل</button><p class="form-status" id="loginStatus" role="status"></p></div></form></div>
+<div class="admin-card" id="dashboard" hidden><div class="admin-heading"><h2>داشبورد آکادمی</h2><button class="mini-button" id="logout" type="button">خروج امن</button></div>
+<div class="section-head" style="margin-top:25px"><div><h2>درخواست‌های عضویت</h2><p>اطلاعات این بخش فقط برای مدیر مجاز قابل مشاهده است.</p></div><button class="mini-button" id="refreshApps" type="button">بروزرسانی</button></div><div class="admin-list" id="applicationsList"><div class="empty">در حال دریافت…</div></div>
+<div class="admin-forms">
+<form id="studentForm"><h3>افزودن هنرجو</h3><div class="field"><label for="studentName">نام نمایشی</label><input id="studentName" maxlength="100" required></div><div class="field"><label for="studentBio">معرفی کوتاه</label><textarea id="studentBio" maxlength="1000"></textarea></div><div class="field"><label for="studentAvatar">لینک تصویر پروفایل</label><input id="studentAvatar" type="url" maxlength="500"></div><div class="field"><label class="check-field"><input id="studentPublished" type="checkbox"> نمایش عمومی هنرجو</label></div><button class="button" type="submit">ثبت هنرجو</button><p class="form-status" id="studentStatus" role="status"></p></form>
+<form id="workForm"><h3>افزودن اثر هنرجو</h3><div class="field"><label for="workStudent">هنرجو</label><select id="workStudent" required><option value="">ابتدا هنرجو را اضافه کن</option></select></div><div class="field"><label for="workTitle">عنوان اثر</label><input id="workTitle" maxlength="120" required></div><div class="field"><label for="workImage">لینک تصویر اثر</label><input id="workImage" type="url" maxlength="500" required></div><div class="field"><label for="workUrl">لینک پروژه (اختیاری)</label><input id="workUrl" type="url" maxlength="500"></div><div class="field"><label for="workDescription">توضیحات</label><textarea id="workDescription" maxlength="1200"></textarea></div><div class="field"><label class="check-field"><input id="workPublished" type="checkbox"> انتشار عمومی اثر</label></div><button class="button" type="submit">ثبت اثر</button><p class="form-status" id="workStatus" role="status"></p></form>
+</div><div class="section-head" style="margin-top:28px"><div><h2>هنرجویان</h2><p>نمایش یا مخفی‌کردن پروفایل هنرجویان.</p></div></div><div class="admin-list" id="studentsList"></div>
+</div></div></section>
 </main>
-<footer><div class="wrap">خیال هنر © ۲۰۲۶ · آکادمی رایگان خیال هنر</div></footer>
+<footer class="footer"><div class="container footer-inner"><span>خیال هنر © ۲۰۲۶</span><span>فضایی برای یادگیری و خلق آثار تازه</span></div></footer>
 <script>
-const SUPABASE_URL = "https://hbxgwuvfvwsvjzxdcqwo.supabase.co";
-const SUPABASE_KEY = "sb_publishable_WwibCmCtYm2vdFQlAGWqQw_A00fxJ_S";
-const FUNCTION_URL = SUPABASE_URL + "/functions/v1/submit-academy-application";
-let accessToken = "";
-let currentUserId = "";
-const $ = (id) => document.getElementById(id);
-const apiHeaders = (token = "") => ({ apikey: SUPABASE_KEY, Authorization: "Bearer " + (token || SUPABASE_KEY), "Content-Type": "application/json" });
-function setStatus(id, message, ok = false) { const el = $(id); el.textContent = message; el.className = "status " + (ok ? "ok" : "err"); }
-function safeText(value) { return String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
-async function loadWorks() {
-  const grid = $("worksGrid");
-  try {
-    const url = SUPABASE_URL + "/rest/v1/academy_student_works?select=id,title,description,image_url,project_url,created_at,academy_students!inner(display_name)&published=eq.true&academy_students.published=eq.true&order=created_at.desc";
-    const res = await fetch(url, { headers: apiHeaders() });
-    if (!res.ok) throw new Error("gallery");
-    const rows = await res.json();
-    if (!rows.length) { grid.innerHTML = '<div class="empty">هنوز اثری برای نمایش منتشر نشده است. به‌زودی آثار تأییدشده اینجا قرار می‌گیرند.</div>'; return; }
-    grid.innerHTML = rows.map(w => '<article class="work"><img loading="lazy" src="' + safeText(w.image_url) + '" alt="' + safeText(w.title) + '"><div class="inside"><div class="by">هنرجو: ' + safeText(w.academy_students?.display_name) + '</div><h3>' + safeText(w.title) + '</h3><p>' + safeText(w.description) + '</p>' + (w.project_url ? '<p><a target="_blank" rel="noopener noreferrer" href="' + safeText(w.project_url) + '">مشاهده پروژه ↗</a></p>' : '') + '</div></article>').join("");
-  } catch { grid.innerHTML = '<div class="empty">دریافت آثار فعلاً ممکن نشد. لطفاً صفحه را دوباره بارگذاری کن.</div>'; }
-}
-$("applicationForm").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const button = $("submitApplication");
-  button.disabled = true; button.textContent = "در حال ثبت…";
-  setStatus("formStatus", "در حال ارسال درخواست…", true);
-  const form = new FormData(event.currentTarget);
-  const payload = Object.fromEntries(form.entries());
-  try {
-    const res = await fetch(FUNCTION_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-    const data = await res.json().catch(() => ({}));
-    if (!res.ok) throw new Error(data.error || "ثبت درخواست انجام نشد.");
-    event.currentTarget.reset();
-    setStatus("formStatus", "درخواستت ثبت شد! پس از بررسی، نتیجه از راه ارتباطی واردشده اعلام می‌شود.", true);
-  } catch (error) { setStatus("formStatus", error.message || "خطا در ارسال درخواست."); }
-  finally { button.disabled = false; button.textContent = "ثبت درخواست رایگان"; }
-});
-$("adminOpen").addEventListener("click", () => { $("adminSection").classList.remove("hidden"); $("loginBox").classList.remove("hidden"); $("dashboard").classList.add("hidden"); $("adminSection").scrollIntoView({behavior:"smooth"}); });
-$("closeAdmin").addEventListener("click", () => $("adminSection").classList.add("hidden"));
-async function adminFetch(path, options = {}) {
-  const res = await fetch(SUPABASE_URL + "/rest/v1/" + path, { ...options, headers: { ...apiHeaders(accessToken), ...(options.headers || {}) } });
-  if (!res.ok) { const body = await res.text(); throw new Error(body.includes("401") ? "نشست مدیر منقضی شده؛ دوباره وارد شو." : "عملیات انجام نشد."); }
-  if (res.status === 204) return null;
-  return res.json().catch(() => null);
-}
-$("loginForm").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const button = $("loginButton"); button.disabled = true;
-  setStatus("loginStatus", "در حال بررسی حساب…", true);
-  try {
-    const auth = await fetch(SUPABASE_URL + "/auth/v1/token?grant_type=password", { method:"POST", headers:{ apikey:SUPABASE_KEY, "Content-Type":"application/json" }, body:JSON.stringify({email:$("adminEmail").value.trim(),password:$("adminPassword").value}) });
-    const session = await auth.json();
-    if (!auth.ok || !session.access_token) throw new Error("ایمیل یا رمز عبور درست نیست.");
-    accessToken = session.access_token; currentUserId = session.user?.id || "";
-    const check = await fetch(SUPABASE_URL + "/rest/v1/rpc/is_academy_admin", { method:"POST", headers:apiHeaders(accessToken), body:"{}" });
-    const allowed = await check.json();
-    if (!check.ok || allowed !== true) { accessToken = ""; currentUserId = ""; throw new Error("این حساب دسترسی مدیریت آکادمی ندارد."); }
-    $("loginBox").classList.add("hidden"); $("dashboard").classList.remove("hidden");
-    await Promise.all([loadApplications(), loadStudents()]);
-  } catch (error) { setStatus("loginStatus", error.message || "ورود انجام نشد."); }
-  finally { button.disabled = false; }
-});
-async function loadApplications() {
-  const list = $("applicationsList"); list.innerHTML = '<div class="empty">در حال دریافت…</div>';
-  try {
-    const rows = await adminFetch("academy_applications?select=id,full_name,phone,rubika_id,age,city,course,sample_work_url,message,status,created_at&order=created_at.desc");
-    if (!rows?.length) { list.innerHTML = '<div class="empty">درخواستی ثبت نشده است.</div>'; return; }
-    list.innerHTML = rows.map(a => '<article class="application"><h3>' + safeText(a.full_name) + ' <span class="pill ' + safeText(a.status) + '">' + ({pending:"در انتظار",approved:"تأییدشده",rejected:"ردشده"}[a.status] || a.status) + '</span></h3><p>تلفن: ' + safeText(a.phone) + ' · روبیکا: ' + safeText(a.rubika_id) + ' · سن: ' + safeText(a.age || "—") + ' · شهر: ' + safeText(a.city || "—") + '</p><p>علاقه‌مندی: ' + safeText(a.course) + '</p><p>' + safeText(a.message || "") + '</p>' + (a.sample_work_url ? '<p><a href="' + safeText(a.sample_work_url) + '" target="_blank" rel="noopener noreferrer">دیدن نمونه‌کار ↗</a></p>' : '') + '<div class="rowactions"><button class="smallbtn good" data-review="approved" data-id="' + safeText(a.id) + '">تأیید درخواست</button><button class="smallbtn bad" data-review="rejected" data-id="' + safeText(a.id) + '">رد درخواست</button></div></article>').join("");
-  } catch (error) { list.innerHTML = '<div class="empty">' + safeText(error.message) + '</div>'; }
-}
-$("applicationsList").addEventListener("click", async (event) => {
-  const btn = event.target.closest("button[data-review]"); if (!btn) return;
-  btn.disabled = true;
-  try {
-    await adminFetch("academy_applications?id=eq." + encodeURIComponent(btn.dataset.id), { method:"PATCH", headers:{ Prefer:"return=minimal" }, body:JSON.stringify({status:btn.dataset.review, reviewed_at:new Date().toISOString(), reviewed_by:currentUserId}) });
-    await loadApplications();
-  } catch (error) { alert(error.message); btn.disabled = false; }
-});
-async function loadStudents() {
-  const rows = await adminFetch("academy_students?select=id,display_name,published&order=created_at.desc");
-  $("workStudent").innerHTML = '<option value="">انتخاب هنرجو…</option>' + rows.map(s => '<option value="' + safeText(s.id) + '">' + safeText(s.display_name) + '</option>').join("");
-  $("studentsList").innerHTML = rows.length ? rows.map(s => '<div class="studentrow"><strong>' + safeText(s.display_name) + '</strong> <span class="pill">' + (s.published ? "عمومی" : "مخفی") + '</span> <button class="smallbtn" data-toggle-student="' + safeText(s.id) + '" data-published="' + String(s.published) + '">' + (s.published ? "مخفی‌کردن" : "انتشار") + '</button></div>').join("") : '<div class="empty">هنوز هنرجویی اضافه نشده است.</div>';
-}
-$("studentForm").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  try {
-    await adminFetch("academy_students", { method:"POST", headers:{ Prefer:"return=minimal" }, body:JSON.stringify({display_name:$("studentName").value.trim(),bio:$("studentBio").value.trim()||null,avatar_url:$("studentAvatar").value.trim()||null,published:$("studentPublished").checked}) });
-    event.currentTarget.reset(); setStatus("studentStatus","هنرجو اضافه شد.",true); await loadStudents();
-  } catch (error) { setStatus("studentStatus",error.message); }
-});
-$("workForm").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  try {
-    await adminFetch("academy_student_works", { method:"POST", headers:{ Prefer:"return=minimal" }, body:JSON.stringify({student_id:$("workStudent").value,title:$("workTitle").value.trim(),image_url:$("workImage").value.trim(),project_url:$("workUrl").value.trim()||null,description:$("workDescription").value.trim()||null,published:$("workPublished").checked}) });
-    event.currentTarget.reset(); setStatus("workStatus","اثر اضافه شد.",true);
-  } catch (error) { setStatus("workStatus",error.message); }
-});
-$("studentsList").addEventListener("click", async (event) => {
-  const btn = event.target.closest("button[data-toggle-student]"); if (!btn) return;
-  try {
-    await adminFetch("academy_students?id=eq." + encodeURIComponent(btn.dataset.toggleStudent), { method:"PATCH", headers:{ Prefer:"return=minimal" }, body:JSON.stringify({published:btn.dataset.published !== "true"}) });
-    await loadStudents();
-  } catch (error) { alert(error.message); }
-});
-$("refreshApps").addEventListener("click", loadApplications);
-$("logout").addEventListener("click", async () => { const token = accessToken; try { if (token) await fetch(SUPABASE_URL + "/auth/v1/logout", { method:"POST", headers:{ apikey:SUPABASE_KEY, Authorization:"Bearer " + token } }); } catch {} accessToken=""; currentUserId=""; $("dashboard").classList.add("hidden"); $("loginBox").classList.remove("hidden"); $("adminPassword").value=""; setStatus("loginStatus","از حساب مدیریت خارج شدی.",true); });
+const SUPABASE_URL="https://hbxgwuvfvwsvjzxdcqwo.supabase.co";
+const SUPABASE_KEY="sb_publishable_WwibCmCtYm2vdFQlAGWqQw_A00fxJ_S";
+// The publishable key is sent in apikey; PostgREST's unauthenticated Authorization header uses the legacy anon JWT.
+const SUPABASE_ANON_JWT="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhieGd3dXZmdndzdmp6eGRjcXdvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM3ODk2NjEsImV4cCI6MjEwOTM2NTY2MX0.A7fpyNlB6PcjQ4rEkWdqhc--BeblVNkFYFkOBqkU_hE";
+const FUNCTION_URL=SUPABASE_URL+"/functions/v1/submit-academy-application";
+let accessToken="",currentUserId="";
+const $=id=>document.getElementById(id);
+const apiHeaders=(token="")=>({apikey:SUPABASE_KEY,Authorization:"Bearer "+(token||SUPABASE_ANON_JWT),"Content-Type":"application/json"});
+function status(id,msg,ok=false){const el=$(id);el.textContent=msg;el.className="form-status "+(ok?"ok":"error")}
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+async function loadWorks(){const grid=$("worksGrid");try{const url=SUPABASE_URL+"/rest/v1/academy_student_works?select=id,title,description,image_url,project_url,created_at,academy_students!inner(display_name)&published=eq.true&academy_students.published=eq.true&order=created_at.desc";const res=await fetch(url,{headers:apiHeaders()});if(!res.ok){const detail=await res.text();throw new Error("HTTP "+res.status+" "+detail.slice(0,180))}const rows=await res.json();if(!rows.length){grid.innerHTML='<div class="empty">هنوز اثری منتشر نشده است. به‌زودی آثار منتخب اینجا قرار می‌گیرند.</div>';return}grid.innerHTML=rows.map(w=>'<article class="work-card"><img class="work-image" loading="lazy" src="'+esc(w.image_url)+'" alt="'+esc(w.title)+'"><div class="work-body"><div class="work-author">هنرجو: '+esc(w.academy_students?.display_name)+'</div><h3>'+esc(w.title)+'</h3><p>'+esc(w.description)+'</p>'+(w.project_url?'<a class="work-link" target="_blank" rel="noopener noreferrer" href="'+esc(w.project_url)+'">مشاهده پروژه ↗</a>':'')+'</div></article>').join("")}catch(e){console.error("Gallery request failed:",e);grid.innerHTML='<div class="empty">دریافت گالری با خطا روبه‌رو شد. صفحه را دوباره بارگذاری کن.</div>'}}
+$("applicationForm").addEventListener("submit",async e=>{e.preventDefault();const btn=$("submitApplication");btn.disabled=true;btn.textContent="در حال ارسال…";status("formStatus","در حال ارسال درخواست…",true);const payload=Object.fromEntries(new FormData(e.currentTarget).entries());try{const res=await fetch(FUNCTION_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});const data=await res.json().catch(()=>({}));if(!res.ok)throw new Error(data.error||"ثبت درخواست انجام نشد.");e.currentTarget.reset();status("formStatus","درخواستت با موفقیت ثبت شد. پس از بررسی، نتیجه اطلاع داده می‌شود.",true)}catch(err){status("formStatus",err.message||"خطا در ارسال درخواست.")}finally{btn.disabled=false;btn.textContent="ارسال درخواست عضویت"}});
+$("adminOpen").addEventListener("click",()=>{$("adminSection").hidden=false;$("loginBox").hidden=false;$("dashboard").hidden=true;$("adminSection").scrollIntoView({behavior:"smooth"})});
+$("closeAdmin").addEventListener("click",()=>$("adminSection").hidden=true);
+async function adminFetch(path,options={}){const res=await fetch(SUPABASE_URL+"/rest/v1/"+path,{...options,headers:{...apiHeaders(accessToken),...(options.headers||{})}});if(!res.ok){const body=await res.text();throw new Error(res.status===401?"نشست مدیر معتبر نیست؛ دوباره وارد شو.":"عملیات انجام نشد ("+res.status+"). "+body.slice(0,150))}if(res.status===204)return null;return res.json().catch(()=>null)}
+$("loginForm").addEventListener("submit",async e=>{e.preventDefault();const btn=$("loginButton");btn.disabled=true;status("loginStatus","در حال بررسی حساب…",true);try{const auth=await fetch(SUPABASE_URL+"/auth/v1/token?grant_type=password",{method:"POST",headers:{apikey:SUPABASE_KEY,"Content-Type":"application/json"},body:JSON.stringify({email:$("adminEmail").value.trim(),password:$("adminPassword").value})});const session=await auth.json();if(!auth.ok||!session.access_token)throw new Error("ایمیل یا رمز عبور درست نیست.");accessToken=session.access_token;currentUserId=session.user?.id||"";const check=await fetch(SUPABASE_URL+"/rest/v1/rpc/is_academy_admin",{method:"POST",headers:apiHeaders(accessToken),body:"{}"});const allowed=await check.json();if(!check.ok||allowed!==true){accessToken="";currentUserId="";throw new Error("این حساب اجازه مدیریت آکادمی را ندارد.")}$("loginBox").hidden=true;$("dashboard").hidden=false;await Promise.all([loadApplications(),loadStudents()])}catch(err){status("loginStatus",err.message||"ورود انجام نشد.")}finally{btn.disabled=false}});
+async function loadApplications(){const list=$("applicationsList");list.innerHTML='<div class="empty">در حال دریافت…</div>';try{const rows=await adminFetch("academy_applications?select=id,full_name,phone,rubika_id,age,city,course,sample_work_url,message,status,created_at&order=created_at.desc");if(!rows?.length){list.innerHTML='<div class="empty">درخواستی ثبت نشده است.</div>';return}list.innerHTML=rows.map(a=>'<article class="application"><h3>'+esc(a.full_name)+' <span class="status-pill '+esc(a.status)+'">'+({pending:"در انتظار",approved:"تأییدشده",rejected:"ردشده"}[a.status]||esc(a.status))+'</span></h3><p>تلفن: '+esc(a.phone)+' · روبیکا: '+esc(a.rubika_id)+' · سن: '+esc(a.age||"—")+' · شهر: '+esc(a.city||"—")+'</p><p>علاقه‌مندی: '+esc(a.course)+'</p><p>'+esc(a.message||"")+'</p>'+(a.sample_work_url?'<p><a target="_blank" rel="noopener noreferrer" href="'+esc(a.sample_work_url)+'">دیدن نمونه‌کار ↗</a></p>':'')+'<div class="actions-row"><button class="mini-button approve" data-review="approved" data-id="'+esc(a.id)+'">تأیید درخواست</button><button class="mini-button reject" data-review="rejected" data-id="'+esc(a.id)+'">رد درخواست</button></div></article>').join("")}catch(err){list.innerHTML='<div class="empty">'+esc(err.message)+'</div>'}}
+$("applicationsList").addEventListener("click",async e=>{const btn=e.target.closest("button[data-review]");if(!btn)return;btn.disabled=true;try{await adminFetch("academy_applications?id=eq."+encodeURIComponent(btn.dataset.id),{method:"PATCH",headers:{Prefer:"return=minimal"},body:JSON.stringify({status:btn.dataset.review,reviewed_at:new Date().toISOString(),reviewed_by:currentUserId})});await loadApplications()}catch(err){alert(err.message);btn.disabled=false}});
+async function loadStudents(){const rows=await adminFetch("academy_students?select=id,display_name,published&order=created_at.desc");$("workStudent").innerHTML='<option value="">انتخاب هنرجو…</option>'+rows.map(s=>'<option value="'+esc(s.id)+'">'+esc(s.display_name)+'</option>').join("");$("studentsList").innerHTML=rows.length?rows.map(s=>'<div class="student-item"><strong>'+esc(s.display_name)+'</strong> <span class="status-pill">'+(s.published?"عمومی":"مخفی")+'</span> <button class="mini-button" data-toggle-student="'+esc(s.id)+'" data-published="'+String(s.published)+'">'+(s.published?"مخفی‌کردن":"انتشار")+'</button></div>').join(""):'<div class="empty">هنوز هنرجویی اضافه نشده است.</div>'}
+$("studentForm").addEventListener("submit",async e=>{e.preventDefault();try{await adminFetch("academy_students",{method:"POST",headers:{Prefer:"return=minimal"},body:JSON.stringify({display_name:$("studentName").value.trim(),bio:$("studentBio").value.trim()||null,avatar_url:$("studentAvatar").value.trim()||null,published:$("studentPublished").checked})});e.currentTarget.reset();status("studentStatus","هنرجو با موفقیت اضافه شد.",true);await loadStudents()}catch(err){status("studentStatus",err.message)}});
+$("workForm").addEventListener("submit",async e=>{e.preventDefault();try{await adminFetch("academy_student_works",{method:"POST",headers:{Prefer:"return=minimal"},body:JSON.stringify({student_id:$("workStudent").value,title:$("workTitle").value.trim(),image_url:$("workImage").value.trim(),project_url:$("workUrl").value.trim()||null,description:$("workDescription").value.trim()||null,published:$("workPublished").checked})});e.currentTarget.reset();status("workStatus","اثر با موفقیت ثبت شد.",true);await loadWorks()}catch(err){status("workStatus",err.message)}});
+$("studentsList").addEventListener("click",async e=>{const btn=e.target.closest("button[data-toggle-student]");if(!btn)return;btn.disabled=true;try{await adminFetch("academy_students?id=eq."+encodeURIComponent(btn.dataset.toggleStudent),{method:"PATCH",headers:{Prefer:"return=minimal"},body:JSON.stringify({published:btn.dataset.published!=="true"})});await loadStudents()}catch(err){alert(err.message);btn.disabled=false}});
+$("refreshApps").addEventListener("click",loadApplications);
+$("logout").addEventListener("click",async()=>{const token=accessToken;try{if(token)await fetch(SUPABASE_URL+"/auth/v1/logout",{method:"POST",headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+token}})}catch{}accessToken="";currentUserId="";$("dashboard").hidden=true;$("loginBox").hidden=false;$("adminPassword").value="";status("loginStatus","از حساب مدیریت خارج شدی.",true)});
 loadWorks();
 </script>
-</body>
-</html>
+</body></html>
