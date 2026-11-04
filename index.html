@@ -518,6 +518,143 @@ body[data-size="large"] .cap .t { font-size: 31px; }
 }
 [hidden] { display: none !important; }
 
+
+/* =========================================================
+   هویت بصری یکپارچه با آکادمی خیال هنر
+   ========================================================= */
+:root{
+  --surface:#fff;
+  --green:#176b55;
+  --green2:#0f4e40;
+  --mint:#dff2e9;
+  --lime:#d6ef8a;
+  --shadow:0 18px 55px rgba(25,59,43,.08);
+}
+body{background:var(--ink);color:var(--paper)}
+.site-header{
+  background:rgba(245,244,239,.9);
+  border-bottom:1px solid var(--line);
+  box-shadow:0 8px 28px rgba(23,43,39,.035);
+}
+.logo{color:var(--paper)}
+.logo-mark{background:var(--green);color:#fff;border-radius:14px;box-shadow:0 7px 18px rgba(23,107,85,.18)}
+.logo em{color:var(--green)}
+.menu a{color:var(--ash);border-radius:12px}
+.menu a:hover{color:var(--green);background:var(--mint)}
+.menu a.on{color:var(--green)}
+.menu a.on::after{background:var(--green)}
+.academy-nav-link{
+  display:inline-flex;align-items:center;gap:8px;
+  color:var(--green);background:var(--mint);
+  border:1px solid #cce8d9;border-radius:13px;
+  padding:9px 15px;font-size:13px;font-weight:800;
+  white-space:nowrap;transition:.2s;
+}
+.academy-nav-link:hover{background:#d1ebdc;transform:translateY(-2px)}
+.academy-nav-link span{font-size:17px;color:#83a93f}
+.hero{
+  min-height:calc(88vh - 78px);
+  padding:72px 0 76px;
+  background:
+    radial-gradient(ellipse at 12% 18%,rgba(214,239,138,.24),transparent 34%),
+    radial-gradient(ellipse at 86% 58%,rgba(223,242,233,.92),transparent 45%);
+}
+.hero:before{
+  background:
+    radial-gradient(520px circle at var(--mx) var(--my),rgba(23,107,85,.10),transparent 70%),
+    radial-gradient(340px circle at 12% 85%,rgba(214,239,138,.18),transparent 72%);
+}
+.hero:after{opacity:.42;background-size:64px 64px}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:10px;
+  margin:0 0 18px;padding:8px 15px;
+  color:var(--green);background:rgba(223,242,233,.9);
+  border:1px solid #cce8d9;border-radius:40px;
+  font-size:13px;font-weight:800;
+}
+.hero-tag-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 5px rgba(23,107,85,.1)}
+.hero h1{color:var(--paper);font-size:clamp(58px,10vw,132px);letter-spacing:-2px}
+.hero h1 .row:nth-child(2)>span{color:var(--green)}
+.hero-foot p{color:var(--ash);font-size:16px;max-width:570px}
+.btn{
+  background:var(--green);border-color:var(--green);color:#fff;
+  border-radius:14px;box-shadow:0 9px 22px rgba(23,107,85,.14);
+}
+.btn:hover{background:var(--green2);border-color:var(--green2)}
+.btn.ghost{background:rgba(255,255,255,.65);color:var(--green);border-color:#cfe1d5;box-shadow:none}
+.btn.ghost:hover{background:var(--mint);color:var(--green2);border-color:#b8d9c6}
+.block{padding-top:78px}
+.section-head{border-color:var(--line)}
+.section-head h2,.page-head h1,.contact h2,.faq-title{color:var(--paper)}
+.more{color:var(--green)}
+.more:hover{color:var(--green2)}
+.page-head{padding-top:76px}
+.page-kicker{color:var(--green)}
+.page-kicker:after{background:#cbd9cf}
+.page-sub{color:var(--ash)}
+.chip{border-color:var(--line);color:var(--ash);background:#fff}
+.chip:hover{border-color:#b9d8c5;color:var(--green);background:var(--mint)}
+.chip[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:#fff}
+.piece{padding:12px;border:1px solid var(--line);border-radius:22px;background:#fff;box-shadow:0 8px 30px rgba(25,59,43,.045);transition:transform .25s,box-shadow .25s}
+.piece:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+.frame{border-color:var(--line);border-radius:15px;background:#edf3ed;box-shadow:none}
+.cap{padding:15px 4px 2px}
+.cap .c{border-color:#dce9df;color:var(--green);background:var(--mint)}
+.cap .t{border:1px solid #cce8d9;background:var(--mint);color:var(--green);border-radius:13px;padding:5px 17px}
+.piece .d{color:var(--ash)}
+.empty{background:#fff;border-color:#cbd9cf;color:var(--ash)}
+.empty strong{color:var(--paper)}
+.row-item{border-color:var(--line);border-radius:16px;padding-inline:16px}
+.row-item:hover{background:#fff}
+.row-item .idx{color:var(--green)}
+.row-item:hover h3{color:var(--green)}
+.steps{gap:18px}
+.step,.stat{
+  background:#fff;border:1px solid var(--line);
+  border-radius:22px;box-shadow:0 8px 28px rgba(25,59,43,.035);
+}
+.step:hover{border-color:#b9d8c5;transform:translateY(-4px);box-shadow:var(--shadow)}
+.step .n,.stat b{color:var(--green)}
+.step .n:after{background:var(--lime)}
+.step p,.row-item p,.stat span,.why-card p,.faq details p{color:var(--ash)}
+.about-text{color:var(--paper)}
+.why-card{border-color:var(--green)}
+.why-card h3{color:var(--paper)}
+.idchip{color:var(--green);border-color:#a9d3bc;background:var(--mint)}
+.faq details{border-color:var(--line)}
+.faq summary::after{color:var(--green)}
+.cta{
+  border-color:var(--line);
+  background:
+    radial-gradient(650px circle at 85% 50%,rgba(214,239,138,.26),transparent 68%),
+    linear-gradient(120deg,#f5f4ef,#edf5ee);
+}
+.cta h2{color:var(--paper)}
+.gallery .piece{break-inside:avoid}
+.dash-card,.panel,.box{background:#fff;border-color:var(--line);color:var(--paper)}
+input,textarea,select{accent-color:var(--green)}
+:focus-visible{outline-color:var(--green)}
+.to-top{background:var(--green);color:#fff;box-shadow:0 8px 24px rgba(23,107,85,.22)}
+@media(max-width:900px){
+  .hero{min-height:auto;padding:62px 0 66px}
+  .hero h1{font-size:clamp(54px,11vw,100px)}
+}
+@media(max-width:640px){
+  .site-header{background:rgba(245,244,239,.96)}
+  .nav{gap:10px}
+  .academy-nav-link{padding:7px 10px;font-size:11px}
+  .hero{padding:48px 0 50px}
+  .hero-tag{font-size:11px}
+  .hero h1{font-size:clamp(48px,13vw,70px);letter-spacing:-1px}
+  .hero-foot{gap:22px;margin-top:24px}
+  .hero-foot p{font-size:14px}
+  .block{padding-top:52px}
+  .piece{padding:9px;border-radius:17px}
+}
+@media(prefers-reduced-motion:reduce){
+  .piece,.step,.academy-nav-link,.btn{transition:none}
+}
+
 </style>
 </head>
 <body>
@@ -529,7 +666,7 @@ body[data-size="large"] .cap .t { font-size: 31px; }
 <div class="container nav">
 <a class="logo" href="#top"><span class="logo-mark">خ</span><span>خیال <em>هنر</em></span></a>
 <nav class="menu" id="menu" aria-label="منوی اصلی"></nav>
-<a href="./academy.html" aria-label="ورود به آکادمی هنرجویان" style="color:var(--ash);padding:8px 13px;border:1px solid var(--line);border-radius:10px;font-size:14px;white-space:nowrap">آکادمی هنرجویان</a>
+<a class="academy-nav-link" href="./academy.html" aria-label="ورود به آکادمی هنرجویان"><span aria-hidden="true">✦</span> آکادمی هنرجویان</a>
 </div>
 </header>
 
@@ -539,6 +676,7 @@ body[data-size="large"] .cap .t { font-size: 31px; }
 <section class="page" data-page="top" id="top">
 <div class="hero">
 <div class="container">
+<p class="hero-tag"><span class="hero-tag-dot"></span> استودیو خلاقیت و طراحی خیال هنر</p>
 <h1 id="heroTitle"><span class="row"><span>لوگو و</span></span><span class="row"><span>تایپوگرافی</span></span><span class="row"><span>طراحی می‌کنم.</span></span></h1>
 <div class="hero-foot">
 <p id="heroText">طراحی لوگو، لوگوتایپ و تایپوگرافی. هر پروژه از یک ایده ساده شروع می‌شود و با حروف، رنگ و فرم به تصویر می‌رسد.</p>
@@ -1375,7 +1513,7 @@ function renderTexts(s) {
   $("contactTitle").textContent = s.contactTitle;
   $("contactText").textContent = s.contactText;
 }
-const DEFAULT_THEME = { bg: "#0a0908", text: "#f3ede5", muted: "#cfc6bc", accent: "#ff6b13", head: "Lalezar" };
+const DEFAULT_THEME = { bg: "#f5f4ef", text: "#172b27", muted: "#687772", accent: "#176b55", head: "Vazirmatn" };
 const HEAD_FONTS = {
   Lalezar: '"Lalezar", "Vazirmatn", Tahoma, sans-serif',
   Rakkas: '"Rakkas", "Vazirmatn", Tahoma, sans-serif',
@@ -1428,9 +1566,15 @@ function applyTheme(th) {
   st.setProperty("--ash", t.muted);
   st.setProperty("--ember", t.accent);
   st.setProperty("--ember-soft", mixHex(t.accent, "#ffffff", 0.18));
-  st.setProperty("--deep", mixHex(t.bg, "#ffffff", 0.05));
-  st.setProperty("--raise", mixHex(t.bg, "#ffffff", 0.09));
-  st.setProperty("--line", mixHex(t.bg, "#ffffff", 0.16));
+  st.setProperty("--deep", "#ffffff");
+  st.setProperty("--raise", "#edf4ee");
+  st.setProperty("--line", "#e3e8e2");
+  st.setProperty("--surface", "#ffffff");
+  st.setProperty("--green", t.accent);
+  st.setProperty("--green2", "#0f4e40");
+  st.setProperty("--mint", "#dff2e9");
+  st.setProperty("--lime", "#d6ef8a");
+  st.setProperty("--shadow", "0 18px 55px rgba(25,59,43,.08)");
   st.setProperty("--display", HEAD_FONTS[t.head]);
   st.setProperty("--display-weight", HEAD_WEIGHTS[t.head] || 400);
 }
