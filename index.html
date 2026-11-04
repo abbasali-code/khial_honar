@@ -67,14 +67,14 @@
 
 <style>
 :root {
-    --ink: #0a0908;
-    --deep: #151311;
-    --raise: #1d1a17;
-    --line: #2b2723;
-    --paper: #f3ede5;
-    --ash: #cfc6bc;
-    --ember: #ff6b13;
-    --ember-soft: #ff8a45;
+    --ink: #EEE9FF;
+    --deep: #FFEAF2;
+    --raise: #F7F0FF;
+    --line: #DCCFEF;
+    --paper: #342B43;
+    --ash: #766C88;
+    --ember: #9274CF;
+    --ember-soft: #A98BDD;
     --display: "Lalezar", "Vazirmatn", Tahoma, sans-serif;
     --body: Vazirmatn, Vazir, "Segoe UI", Tahoma, Arial, sans-serif;
 }
@@ -99,7 +99,7 @@ section[id] { scroll-margin-top: 90px; }
 /* ---------- هدر ---------- */
 .site-header {
     position: sticky; top: 0; z-index: 50;
-    background: rgba(13,12,11,.78);
+    background: rgba(238,233,255,.88);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--line);
@@ -108,7 +108,7 @@ section[id] { scroll-margin-top: 90px; }
 .logo { display: flex; align-items: center; gap: 12px; font-family: var(--display); font-size: 25px; line-height: 1.6; color: var(--paper); }
 .logo-mark {
     width: 44px; height: 44px; display: grid; place-items: center; border-radius: 14px;
-    background: var(--ember); color: #1a0d03; font-family: var(--display); font-size: 26px; line-height: 1; padding-bottom: 6px;
+    background: var(--ember); color: #342B43; font-family: var(--display); font-size: 26px; line-height: 1; padding-bottom: 6px;
 }
 .logo em { font-style: normal; color: var(--ember); }
 .menu { display: flex; gap: 2px; flex-wrap: wrap; }
@@ -165,10 +165,10 @@ h1, h2, h3, .logo, .logo-mark, .menu a, .btn, .chip, .tab, .more, .page-kicker,
 .btn {
     display: inline-block; padding: 14px 26px; border-radius: 14px;
     font-weight: 800; font-size: 15px; cursor: pointer; border: 1px solid var(--ember);
-    background: var(--ember); color: #1a0d03; transition: transform .2s, background .2s, border-color .2s;
+    background: var(--ember); color: #342B43; transition: transform .2s, background .2s, border-color .2s;
 }
 .btn:hover { transform: translateY(-2px); background: var(--ember-soft); border-color: var(--ember-soft); }
-.btn.ghost { background: transparent; color: var(--paper); border-color: #4a443e; }
+.btn.ghost { background: transparent; color: var(--paper); border-color: #CBBBE7; }
 .btn.ghost:hover { border-color: var(--ember); background: transparent; color: var(--ember-soft); }
 
 /* ---------- بخش‌ها و سرتیترها ---------- */
@@ -195,7 +195,7 @@ h1, h2, h3, .logo, .logo-mark, .menu a, .btn, .chip, .tab, .more, .page-kicker,
     padding: 8px 18px; border-radius: 40px; cursor: pointer; font-size: 14px;
     transition: color .2s, border-color .2s, background .2s;
 }
-.chip:hover { color: var(--paper); border-color: #4a443e; }
+.chip:hover { color: var(--paper); border-color: #CBBBE7; }
 .chip[aria-pressed="true"] { background: var(--ember); border-color: var(--ember); color: #1a0d03; font-weight: 800; }
 
 /* ---------- گالری و کارت نمونه‌کار ---------- */
@@ -224,7 +224,7 @@ h1, h2, h3, .logo, .logo-mark, .menu a, .btn, .chip, .tab, .more, .page-kicker,
 }
 
 .piece .d { color: var(--ash); font-size: 14px; line-height: 1.9; padding: 10px 4px 0; white-space: pre-line; }
-.empty { padding: 90px 20px; text-align: center; border: 1px dashed #3a342f; border-radius: 18px; color: var(--ash); }
+.empty { padding: 90px 20px; text-align: center; border: 1px dashed #DCCFEF; border-radius: 18px; color: var(--ash); }
 .empty strong { display: block; color: var(--paper); font-size: 18px; margin-bottom: 6px; }
 
 /* ---------- خدمات ---------- */
@@ -245,7 +245,7 @@ h1, h2, h3, .logo, .logo-mark, .menu a, .btn, .chip, .tab, .more, .page-kicker,
     background: var(--deep); border: 1px solid var(--line); border-radius: 22px; padding: 34px 30px;
     transition: border-color .3s, transform .3s;
 }
-.step:hover { border-color: #4a443e; }
+.step:hover { border-color: #CBBBE7; }
 .step .n { font-family: var(--display); font-size: 64px; color: var(--ember); line-height: 1.5; }
 .step .n:after { content: ""; display: block; width: 46px; height: 9px; border-radius: 50%; background: var(--paper); margin-top: 4px; }
 .step h3 { margin: 16px 0 8px; font-family: var(--display); font-weight: 400; font-size: 24px; line-height: 1.6; }
@@ -301,7 +301,7 @@ h1, h2, h3, .logo, .logo-mark, .menu a, .btn, .chip, .tab, .more, .page-kicker,
 body[data-layout="grid"] .gallery { column-count: auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; align-items: start; }
 body[data-layout="grid"] .piece { margin: 0; }
 body[data-frame="sharp"] .frame { border-radius: 0; }
-body[data-badge="solid"] .cap .t { background: var(--ember); color: #1a0d03; backdrop-filter: none; -webkit-backdrop-filter: none; }
+body[data-badge="solid"] .cap .t { background: var(--ember); color: #342B43; backdrop-filter: none; -webkit-backdrop-filter: none; }
 @media (max-width: 900px) { body[data-layout="grid"] .gallery { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 640px) { body[data-layout="grid"] .gallery { grid-template-columns: 1fr; } }
 .look-row { margin-bottom: 22px; }
@@ -396,10 +396,10 @@ textarea { min-height: 120px; resize: vertical; }
 .box input { margin-bottom: 14px; }
 .panel button.primary, .box button {
     margin-top: 18px; border: 0; border-radius: 14px; padding: 13px 22px;
-    background: var(--ember); color: #1a0d03; font-weight: 800; cursor: pointer; font-size: 14px;
+    background: var(--ember); color: #342B43; font-weight: 800; cursor: pointer; font-size: 14px;
 }
 .box button { width: 100%; }
-button.secondary { margin-top: 14px; border: 1px solid #4a443e; background: transparent; color: var(--paper); border-radius: 14px; padding: 12px 20px; cursor: pointer; font-size: 14px; }
+button.secondary { margin-top: 14px; border: 1px solid #CBBBE7; background: transparent; color: var(--paper); border-radius: 14px; padding: 12px 20px; cursor: pointer; font-size: 14px; }
 button.secondary:hover { border-color: var(--ember); }
 button.delete { margin-top: 0; background: #7d2323; color: #fff; border: 0; border-radius: 12px; padding: 9px 18px; cursor: pointer; font-size: 13px; }
 .links { margin-top: 22px; text-align: center; font-size: 14px; }
@@ -451,7 +451,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 28px 0; }
 .statusbar.dirty { border-color: var(--ember); }
 .statusbar .btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
 .statusbar .btns button { margin-top: 0; }
-.preview-bar { position: fixed; bottom: 18px; right: 18px; z-index: 60; background: var(--ember); color: #1a0d03; font-weight: 800; font-size: 13px; padding: 10px 18px; border-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,.4); }
+.preview-bar { position: fixed; bottom: 18px; right: 18px; z-index: 60; background: var(--ember); color: #342B43; font-weight: 800; font-size: 13px; padding: 10px 18px; border-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,.4); }
 .preview-bar[hidden] { display: none; }
 h3.sub { margin: 30px 0 0; font-size: 17px; color: var(--ember); }
 .work label { margin: 10px 0 4px; font-size: 12px; }
@@ -1542,7 +1542,7 @@ function renderTexts(s) {
   $("contactTitle").textContent = s.contactTitle;
   $("contactText").textContent = s.contactText;
 }
-const DEFAULT_THEME = { bg: "#f5f4ef", text: "#172b27", muted: "#687772", accent: "#176b55", head: "Vazirmatn" };
+const DEFAULT_THEME = { bg: "#EEE9FF", text: "#342B43", muted: "#766C88", accent: "#9274CF", head: "Vazirmatn" };
 const HEAD_FONTS = {
   Lalezar: '"Lalezar", "Vazirmatn", Tahoma, sans-serif',
   Rakkas: '"Rakkas", "Vazirmatn", Tahoma, sans-serif',
@@ -1595,15 +1595,15 @@ function applyTheme(th) {
   st.setProperty("--ash", t.muted);
   st.setProperty("--ember", t.accent);
   st.setProperty("--ember-soft", mixHex(t.accent, "#ffffff", 0.18));
-  st.setProperty("--deep", "#ffffff");
-  st.setProperty("--raise", "#edf4ee");
-  st.setProperty("--line", "#e3e8e2");
-  st.setProperty("--surface", "#ffffff");
+  st.setProperty("--deep", "#FFEAF2");
+  st.setProperty("--raise", "#F7F0FF");
+  st.setProperty("--line", "#DCCFEF");
+  st.setProperty("--surface", "#FFF9FC");
   st.setProperty("--green", t.accent);
-  st.setProperty("--green2", "#0f4e40");
-  st.setProperty("--mint", "#dff2e9");
-  st.setProperty("--lime", "#d6ef8a");
-  st.setProperty("--shadow", "0 18px 55px rgba(25,59,43,.08)");
+  st.setProperty("--green2", "#66518F");
+  st.setProperty("--mint", "#FFEAF2");
+  st.setProperty("--lime", "#E9DDFB");
+  st.setProperty("--shadow", "0 18px 55px rgba(88,65,130,.12)");
   st.setProperty("--display", HEAD_FONTS[t.head]);
   st.setProperty("--display-weight", HEAD_WEIGHTS[t.head] || 400);
 }
