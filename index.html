@@ -662,6 +662,25 @@ body{background:var(--ink);color:var(--paper)}
 .btn.ghost{color:var(--paper);border-color:#cbbbe2}
 .frame,.step,.stat,.dash-card,.color-field{background:var(--deep);border-color:var(--line)}
 .cap .t{background:rgba(146,116,207,.12);border-color:var(--ember);color:var(--paper)}
+
+/* Gallery polish: compact artwork cards + floating rectangular captions */
+.gallery{column-count:4;column-gap:18px}
+#featured{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.piece{margin:0 0 24px;break-inside:avoid}
+.frame{position:relative;isolation:isolate;display:block;width:100%;padding:0;border:1px solid #dfd3ee;background:#f8dfed;border-radius:17px;overflow:hidden;cursor:zoom-in;box-shadow:0 12px 28px rgba(90,65,125,.12);transition:transform .25s ease,box-shadow .25s ease}
+.frame:hover{transform:translateY(-4px);box-shadow:0 18px 34px rgba(90,65,125,.19)}
+.frame img{display:block;width:100%;height:auto;max-height:245px;object-fit:contain;background:linear-gradient(145deg,#f5efff,#fff0f5);transition:transform .45s ease}
+.frame:hover img{transform:scale(1.025)}
+.frame-caption{position:absolute;right:9px;bottom:9px;z-index:2;display:flex;flex-direction:column;align-items:flex-start;gap:2px;max-width:calc(100% - 18px);padding:7px 11px 6px;border:1px solid rgba(255,255,255,.72);border-radius:9px;background:rgba(255,248,252,.91);color:#342b43;text-align:right;box-shadow:0 4px 14px rgba(45,31,67,.16);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);pointer-events:none}
+.frame-category{font-family:var(--body);font-size:9px;line-height:1.3;color:#8066b4;font-weight:800}
+.frame-title{font-family:var(--display);font-size:clamp(12px,1.2vw,16px);line-height:1.45;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.piece .d{padding:7px 4px 0;font-size:12px;line-height:1.8;color:var(--ash)}
+.cap{display:none}
+#featured .frame img{max-height:215px}
+#featured .frame-title{font-size:15px}
+@media(max-width:900px){.gallery{column-count:3;column-gap:15px}#featured{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}}
+@media(max-width:640px){.gallery{column-count:2;column-gap:12px}#featured{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.piece{margin-bottom:17px}.frame{border-radius:13px}.frame img{max-height:205px}.frame-caption{right:7px;bottom:7px;padding:5px 8px;border-radius:7px}.frame-title{font-size:12px}.frame-category{font-size:8px}.piece .d{font-size:11px;padding-top:5px}}
+
 </style>
 </head>
 <body>
@@ -1388,7 +1407,7 @@ function renderFilters() {
   });
 }
 
-/* کارت یک نمونه‌کار: تصویر + آرم (عنوان با فونت متوسط) + بیضی نارنجی زیر آن */
+/* کارت نمونه‌کار: تصویر جمع‌وجور با عنوان شناور روی تصویر */
 function workCard(work, onOpen) {
   const fig = el("figure", "piece");
   const btn = el("button", "frame");
@@ -1400,11 +1419,14 @@ function workCard(work, onOpen) {
   img.loading = "lazy";
   img.decoding = "async";
   btn.appendChild(img);
+
+  const caption = el("span", "frame-caption");
+  if (work.category) caption.appendChild(el("span", "frame-category", work.category));
+  caption.appendChild(el("span", "frame-title", work.title));
+  btn.appendChild(caption);
   btn.onclick = () => onOpen(btn);
-  const cap = el("figcaption", "cap");
-  if (work.category) cap.appendChild(el("span", "c", work.category));
-  cap.appendChild(el("span", "t", work.title));
-  fig.append(btn, cap);
+
+  fig.appendChild(btn);
   if (work.description) fig.appendChild(el("div", "d", work.description));
   return fig;
 }
