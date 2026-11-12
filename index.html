@@ -1051,7 +1051,7 @@ input,textarea,select{accent-color:var(--ember)}
 
 <!-- ╔════════════════════════════════════════════════════╗
      ║  محتوای سایت (متن‌ها و نمونه‌کارها) — پایگاه داده  ║
-     ║  این بخش هنگام «دانلود نسخه‌ی نهایی» خودکار         ║
+     ║  این بخش فقط برای داده‌ی اولیه و پشتیبان سایت است.   ║
      ║  به‌روز می‌شود؛ لازم نیست دستی دست بزنید.           ║
      ╚════════════════════════════════════════════════════╝ -->
 <script id="site-data" type="application/json">
@@ -1446,6 +1446,8 @@ async function publish() {
   button.disabled = true;
   button.textContent = "در حال انتشار...";
   try {
+    clearTimeout(saveTimer);
+    saveTimer = null;
     const data = clone(editable());
     for (const work of data.works || []) {
       if (typeof work.image === "string" && work.image.startsWith("data:image/")) {
@@ -2189,7 +2191,7 @@ function buildDashboard() {
   });
   box.appendChild(grid);
   box.appendChild(el("p", "dash-state" + (hasDraft ? " dirty" : ""),
-    hasDraft ? "تغییراتی دارید که هنوز منتشر نشده‌اند. با دکمه‌ی «دانلود نسخه‌ی نهایی» فایل جدید بسازید و روی هاست بگذارید."
+    hasDraft ? "تغییراتی دارید که هنوز منتشر نشده‌اند. با دکمه‌ی «انتشار مستقیم تغییرات» آن‌ها را برای همه منتشر کنید."
              : "همه‌چیز با نسخه‌ی منتشرشده یکی است."));
   const acts = el("div", "dash-actions");
   acts.appendChild(smallBtn("افزودن نمونه‌کار", () => navigate("#admin/works"), "primary"));
@@ -2324,7 +2326,7 @@ function buildLook() {
     wrap.appendChild(row);
     box.appendChild(wrap);
   });
-  box.appendChild(el("p", "notice", "این تنظیمات بعد از انتشار فایل نهایی روی سایت دیده می‌شوند. برای دیدن تغییرات، «مشاهده‌ی سایت» را بزنید."));
+  box.appendChild(el("p", "notice", "این تنظیمات بعد از انتشار مستقیم در سایت برای همه نمایش داده می‌شوند."));
 }
 function buildAdmin() {
   updateStatus();
