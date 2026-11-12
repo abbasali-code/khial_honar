@@ -939,11 +939,10 @@ input,textarea,select{accent-color:var(--ember)}
 <div class="box">
 <div class="logo-c">خیال هنر</div>
 <h2>ورود به مدیریت</h2>
-<p class="error" id="loginError" style="display:none;">ایمیل یا رمز عبور درست نیست.</p>
+<p class="error" id="loginError" style="display:none;">رمز عبور درست نیست.</p>
 <div id="loginForm">
-<input type="email" id="emailInput" placeholder="ایمیل مدیر" autocomplete="username" dir="ltr">
-<input type="password" id="passwordInput" placeholder="رمز عبور" autocomplete="current-password" dir="ltr">
-<button type="button" id="loginBtn">ورود امن</button>
+<input type="password" id="passwordInput" placeholder="رمز مدیریت" autocomplete="current-password" dir="ltr">
+<button type="button" id="loginBtn">ورود</button>
 </div>
 <div class="links"><a href="#top">بازگشت به سایت</a></div>
 </div>
@@ -1120,29 +1119,40 @@ function clearAdminSession() {
   accessToken = ""; refreshToken = ""; currentAdmin = null; adminOK = false;
   try { sessionStorage.removeItem("khial_admin_access"); sessionStorage.removeItem("khial_admin_refresh"); } catch (e) {}
 }
-async function sbRequest(path, options = {}) {
-  const headers = { apikey: SB_KEY, Authorization: "Bearer " + (options.token || accessToken || SB_KEY), ...(options.headers || {}) };
-  if (options.body !== undefined && !headers["Content-Type"]) headers["Content-Type"] = "application/json";
-  const response = await fetch(SB_URL + path, { method: options.method || "GET", headers, body: options.body === undefined ? undefined : (typeof options.body === "string" ? options.body : JSON.stringify(options.body)) });
+const ADMIN_GATEWAY = SB_URL + "/functions/v1/admin-panel-gateway";
+async function adminRequest(action, payload = {}, token = accessToken) {
+  const headers = { apikey: SB_KEY, "Content-Type": "application/json" };
+  if (token) headers.Authorization = "Bearer " + token;
+  const response = await fetch(ADMIN_GATEWAY, { method: "POST", headers, body: JSON.stringify({ action, ...payload }) });
   const raw = await response.text();
   let data = null;
-  if (raw.trim()) { try { data = JSON.parse(raw); } catch (e) { data = null; } }
-  if (!response.ok) {
-    const message = data && (data.msg || data.message || data.error_description || data.error) || raw || ("HTTP " + response.status);
-    throw new Error(String(message).slice(0, 240));
-  }
+  if (raw.trim()) { try { data = JSON.parse(raw); } catch (e) {} }
+  if (!response.ok) throw new Error((data && (data.error || data.message)) || raw || ("HTTP " + response.status));
   return data;
 }
+async function sbRequest(path, options = {}) {
+  const method = options.method || "GET";
+  if (path.startsWith("/rest/v1/site_content?select=")) {
+    const response = await fetch(SB_URL + path, { headers: { apikey: SB_KEY, Authorization: "Bearer " + SB_KEY } });
+    const raw = await response.text(); let data = null;
+    if (raw.trim()) { try { data = JSON.parse(raw); } catch (e) {} }
+    if (!response.ok) throw new Error((data && data.message) || raw || ("HTTP " + response.status));
+    return data;
+  }
+  if (path === "/auth/v1/user" || path === "/rest/v1/rpc/is_academy_admin") return adminRequest("verify", {}, options.token || accessToken);
+  if (path.startsWith("/rest/v1/site_drafts?select=")) return adminRequest("draft_get");
+  if (path.startsWith("/rest/v1/site_drafts?on_conflict=")) return adminRequest("draft_save", { content: options.body && options.body.content });
+  if (path.startsWith("/rest/v1/site_drafts?id=") && method === "DELETE") return adminRequest("draft_delete");
+  if (path.startsWith("/rest/v1/site_content?on_conflict=") && method === "POST") return adminRequest("publish", { content: options.body && options.body.content });
+  if (path === "/auth/v1/logout") return adminRequest("logout");
+  throw new Error("درخواست مدیریت ناشناخته است.");
+}
 async function checkAdminToken(token) {
-  const user = await sbRequest("/auth/v1/user", { token });
-  const allowed = await sbRequest("/rest/v1/rpc/is_academy_admin", { method: "POST", token, body: {} });
-  if (allowed !== true) throw new Error("این حساب اجازه مدیریت آکادمی را ندارد.");
-  return user;
+  return adminRequest("verify", {}, token);
 }
 async function restoreAdminSession() {
   try {
     accessToken = sessionStorage.getItem("khial_admin_access") || "";
-    refreshToken = sessionStorage.getItem("khial_admin_refresh") || "";
     if (!accessToken) return;
     currentAdmin = await checkAdminToken(accessToken);
     adminOK = true;
@@ -1158,22 +1168,9 @@ async function loadPublishedContent() {
   } catch (e) { console.warn("Published content could not be loaded:", e.message); }
 }
 async function uploadDataUrl(dataUrl) {
-  const blob = await (await fetch(dataUrl)).blob();
-  const ext = blob.type === "image/png" ? "png" : blob.type === "image/webp" ? "webp" : blob.type === "image/gif" ? "gif" : "jpg";
-  const path = "site/" + uid() + "-" + (crypto.randomUUID ? crypto.randomUUID() : uid()) + "." + ext;
-  const encodedPath = path.split("/").map(encodeURIComponent).join("/");
-  const response = await fetch(SB_URL + "/storage/v1/object/academy-works/" + encodedPath, {
-    method: "POST",
-    headers: { apikey: SB_KEY, Authorization: "Bearer " + accessToken, "Content-Type": blob.type || "image/jpeg", "x-upsert": "false" },
-    body: blob
-  });
-  const raw = await response.text();
-  if (!response.ok) {
-    let detail = raw;
-    try { const parsed = JSON.parse(raw); detail = parsed.message || parsed.error || parsed.statusCode || raw; } catch (e) {}
-    throw new Error("آپلود تصویر انجام نشد: " + String(detail).slice(0, 160));
-  }
-  return SB_URL + "/storage/v1/object/public/academy-works/" + encodedPath;
+  const result = await adminRequest("upload", { dataUrl });
+  if (!result || !result.url) throw new Error("آدرس تصویر از سرور دریافت نشد.");
+  return result.url;
 }
 async function uploadPreparedImage(file) {
   const dataUrl = await prepareImage(file);
@@ -1362,8 +1359,7 @@ async function loadDraft() {
   let d = null;
   if (adminOK) {
     try {
-      const rows = await sbRequest("/rest/v1/site_drafts?select=content&id=eq.main");
-      if (Array.isArray(rows) && rows[0] && rows[0].content) d = rows[0].content;
+      d = await sbRequest("/rest/v1/site_drafts?select=content&id=eq.main");
     } catch (e) { console.warn("Remote draft unavailable:", e.message); }
   }
   if (!d) d = await kv.get("draft");
@@ -2090,8 +2086,7 @@ function buildAccount() {
   box.appendChild(el("p", "notice", "این آیدی در بخش «خدمات» و «تماس» سایت، همراه با دکمه‌ی «کپی آیدی» نمایش داده می‌شود."));
 
   box.appendChild(el("h3", "sub", "حساب مدیریت"));
-  box.appendChild(el("p", "notice", "ورود مدیریت با احراز هویت امن Supabase انجام می‌شود."));
-  box.appendChild(el("p", "notice", "ایمیل حساب: " + (currentAdmin && currentAdmin.email ? currentAdmin.email : "مدیر واردشده")));
+  box.appendChild(el("p", "notice", "ورود پنل با رمز مدیریت انجام می‌شود."));
   box.appendChild(smallBtn("خروج از حساب مدیریت", () => logout()));
 }
 
@@ -2341,28 +2336,18 @@ function buildAdmin() {
 
 /* ---------- ورود و خروج ---------- */
 async function doLogin() {
-  const email = $("emailInput").value.trim().toLowerCase();
   const password = $("passwordInput").value;
   const errorBox = $("loginError");
   errorBox.style.display = "none";
-  if (!email || !password) { errorBox.textContent = "ایمیل و رمز عبور را وارد کن."; errorBox.style.display = "block"; return; }
+  if (!password) { errorBox.textContent = "رمز مدیریت را وارد کن."; errorBox.style.display = "block"; return; }
   const button = $("loginBtn");
   button.disabled = true;
   try {
-    const response = await fetch(SB_URL + "/auth/v1/token?grant_type=password", {
-      method: "POST",
-      headers: { apikey: SB_KEY, "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password })
-    });
-    const raw = await response.text();
-    let data = {};
-    try { data = raw ? JSON.parse(raw) : {}; } catch (e) {}
-    if (!response.ok || !data.access_token) throw new Error(data.msg || data.message || "ایمیل یا رمز عبور درست نیست.");
-    accessToken = data.access_token;
-    refreshToken = data.refresh_token || "";
-    currentAdmin = await checkAdminToken(accessToken);
+    const data = await adminRequest("login", { password }, "");
+    accessToken = data.token;
+    currentAdmin = data.admin;
     adminOK = true;
-    try { sessionStorage.setItem("khial_admin_access", accessToken); sessionStorage.setItem("khial_admin_refresh", refreshToken); } catch (e) {}
+    try { sessionStorage.setItem("khial_admin_access", accessToken); } catch (e) {}
     $("passwordInput").value = "";
     await loadDraft();
     siteDirty = true;
@@ -2375,7 +2360,6 @@ async function doLogin() {
 }
 $("loginBtn").onclick = doLogin;
 $("passwordInput").addEventListener("keydown", e => { if (e.key === "Enter") doLogin(); });
-$("emailInput").addEventListener("keydown", e => { if (e.key === "Enter") $("passwordInput").focus(); });
 async function logout() {
   try { if (accessToken) await sbRequest("/auth/v1/logout", { method: "POST" }); } catch (e) {}
   clearAdminSession();
