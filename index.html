@@ -736,6 +736,86 @@ input,textarea,select{accent-color:var(--ember)}
 :focus-visible{outline-color:var(--ember)}
 .to-top{background:var(--ember);color:#342B43;box-shadow:0 8px 24px rgba(146,116,207,.2)}
 
+
+/* ---------- گالری تمام‌عرض و کارت‌های بزرگ ---------- */
+#siteView .page[data-page="works"] > .container.block-sm {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0 0 70px;
+}
+#siteView .page[data-page="works"] .filters,
+#siteView .page[data-page="works"] .size-bar {
+  margin-inline: auto;
+  width: min(94%, 1500px);
+}
+#siteView .page[data-page="works"] .size-bar { display: none !important; }
+#siteView .page[data-page="works"] .gallery {
+  display: grid !important;
+  width: 100%;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  column-count: initial !important;
+  gap: clamp(24px, 3vw, 46px);
+  padding: 8px clamp(14px, 2.5vw, 38px) 34px;
+  align-items: start;
+}
+#siteView .page[data-page="works"] .piece {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  margin: 0 !important;
+  padding-bottom: 18px;
+  break-inside: auto;
+}
+#siteView .page[data-page="works"] .piece::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 12%;
+  right: 12%;
+  bottom: 0;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(139, 92, 220, .58);
+  filter: blur(25px);
+  pointer-events: none;
+}
+#siteView .page[data-page="works"] .frame {
+  width: 100%;
+  border-radius: 22px;
+  box-shadow: 0 14px 38px rgba(82, 54, 130, .13);
+}
+#siteView .page[data-page="works"] .frame img {
+  width: 100%;
+  max-height: none !important;
+  height: auto;
+  object-fit: contain;
+}
+#siteView .page[data-page="works"] .frame-caption {
+  right: 16px;
+  bottom: 16px;
+  max-width: calc(100% - 32px);
+  padding: 10px 15px;
+  border-radius: 13px;
+}
+#siteView .page[data-page="works"] .frame-title { font-size: clamp(15px, 1.5vw, 21px); }
+#siteView .page[data-page="works"] .piece .d {
+  padding: 12px 8px 0;
+  font-size: 14px;
+}
+@media (max-width: 640px) {
+  #siteView .page[data-page="works"] > .container.block-sm { padding-bottom: 42px; }
+  #siteView .page[data-page="works"] .filters { width: calc(100% - 24px); }
+  #siteView .page[data-page="works"] .gallery {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 28px;
+    padding: 8px 0 28px;
+  }
+  #siteView .page[data-page="works"] .piece { padding-bottom: 16px; }
+  #siteView .page[data-page="works"] .frame { border-radius: 22px; }
+  #siteView .page[data-page="works"] .frame-caption { right: 13px; bottom: 13px; }
+}
+
 </style>
 </head>
 <body>
@@ -910,7 +990,7 @@ input,textarea,select{accent-color:var(--ember)}
 </footer>
 
 <a class="to-top" id="toTop" href="#top" aria-label="بازگشت به بالای صفحه">↑</a>
-<a class="preview-bar" id="previewBar" href="#admin" hidden>پیش‌نمایش تغییرات منتشرنشده · بازگشت به مدیریت</a>
+
 </div>
 
 
@@ -2399,7 +2479,6 @@ async function route() {
   } else {
     show("site");
     if (siteDirty) renderSite(); else renderMenu();
-    $("previewBar").hidden = !(isAdmin() && draft);
     const id = hash.slice(1);
     showPage(PAGES.includes(id) ? id : "top");
   }
