@@ -1377,7 +1377,6 @@ async function loadDraft() {
   }
 }
 const isAdmin = () => !!(adminOK && accessToken);
-let adminOK = false;
 const editable = () => draft || published;                       /* برای خواندن در مدیریت */
 const shown = () => (isAdmin() && draft) ? draft : published;      /* برای نمایش سایت */
 
