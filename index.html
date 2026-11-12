@@ -54,14 +54,9 @@
 <!--
   ╔══════════════════════════════════════════════════════════════╗
   ║  راهنمای سریع                                                ║
-  ║  ۱) وارد «مدیریت» شوید و هر تغییری بدهید (متن، عکس، ...).     ║
-  ║  ۲) در بالای پنل مدیریت دکمه‌ی «دانلود نسخه‌ی نهایی سایت»     ║
-  ║     را بزنید تا فایل index.html جدید ساخته شود.               ║
-  ║  ۳) همین فایل را جای فایل قبلی روی هاست آپلود کنید.           ║
-  ║     از این لحظه همه‌ی بازدیدکننده‌ها نسخه‌ی جدید را می‌بینند.  ║
-  ║                                                              ║
-  ║  تمام محتوای سایت (متن‌ها و نمونه‌کارها) داخل بلوک            ║
-  ║  site-data پایین صفحه ذخیره شده است.            ║
+  ║  مدیریت و محتوای منتشرشده از طریق Supabase ذخیره می‌شوند.     ║
+  ║  تصاویر در Storage و متن‌ها و تنظیمات در پایگاه داده هستند.   ║
+  ║  برای انتشار، از دکمه‌ی «انتشار مستقیم تغییرات» استفاده کنید. ║
   ╚══════════════════════════════════════════════════════════════╝
 -->
 
@@ -944,10 +939,11 @@ input,textarea,select{accent-color:var(--ember)}
 <div class="box">
 <div class="logo-c">خیال هنر</div>
 <h2>ورود به مدیریت</h2>
-<p class="error" id="loginError" style="display:none;">رمز عبور اشتباه است.</p>
+<p class="error" id="loginError" style="display:none;">ایمیل یا رمز عبور درست نیست.</p>
 <div id="loginForm">
-<input type="password" id="passwordInput" placeholder="رمز مدیریت" autocomplete="off">
-<button type="button" id="loginBtn">ورود</button>
+<input type="email" id="emailInput" placeholder="ایمیل مدیر" autocomplete="username" dir="ltr">
+<input type="password" id="passwordInput" placeholder="رمز عبور" autocomplete="current-password" dir="ltr">
+<button type="button" id="loginBtn">ورود امن</button>
 </div>
 <div class="links"><a href="#top">بازگشت به سایت</a></div>
 </div>
@@ -959,16 +955,16 @@ input,textarea,select{accent-color:var(--ember)}
 <div class="logo-c">خیال هنر</div>
 <h1>مدیریت سایت</h1>
 
-<p class="notice" id="memWarn" hidden style="color:#ff9a62;margin:0 0 14px;">ذخیره‌سازی پیش‌نویس در این مرورگر فعال نیست و تغییرات با بستن صفحه از بین می‌روند. قبل از بستن صفحه حتماً «دانلود نسخه‌ی نهایی» را بزنید یا از مرورگر اصلی (مثل کروم) استفاده کنید.</p>
+<p class="notice" id="memWarn" hidden style="color:#ff9a62;margin:0 0 14px;">اتصال ذخیره‌سازی موقتاً برقرار نیست؛ تغییرات تا برقراری اتصال فقط در همین مرورگر نگه داشته می‌شوند.</p>
 
 <!-- وضعیت انتشار -->
 <div class="statusbar" id="statusBar">
 <div id="statusText"></div>
 <div class="btns">
-<button class="primary" type="button" id="publishBtn">دانلود نسخه‌ی نهایی سایت</button>
+<button class="primary" type="button" id="publishBtn">انتشار مستقیم تغییرات</button>
 <button class="secondary" type="button" id="discardBtn">دور ریختن تغییرات</button>
 </div>
-<p class="notice" style="margin:10px 0 0;">فایل دانلودشده (index.html) را جای فایل قبلی روی هاست بگذارید؛ بعد از آن همه‌ی بازدیدکننده‌ها تغییرات و نمونه‌کارها را می‌بینند و هیچ‌کس نمی‌تواند چیزی را پاک کند.</p>
+<p class="notice" style="margin:10px 0 0;">با انتشار، تغییرات مستقیماً در پایگاه داده ذخیره می‌شوند و برای همه‌ی بازدیدکننده‌ها نمایش داده خواهند شد.</p>
 </div>
 
 <div class="tabs" role="tablist">
@@ -1061,7 +1057,7 @@ input,textarea,select{accent-color:var(--ember)}
 <script id="site-data" type="application/json">
 {
   "version": 1,
-  "passHash": "fc3f144ff5152dc84b33e2e55bc2ab25573482de85ab60269b8ad33bdb773995",
+
   "settings": {
     "heroLines": [
       "لوگو و",
@@ -1116,6 +1112,73 @@ const PRISTINE = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
 
 const SALT = "khial-honar:";
 const MAX_SIDE = 1400;
+const SB_URL = "https://hbxgwuvfvwsvjzxdcqwo.supabase.co";
+const SB_KEY = "sb_publishable_WwibCmCtYm2vdFQlAGWqQw_A00fxJ_S";
+let accessToken = "", refreshToken = "", currentAdmin = null, adminOK = false;
+
+function clearAdminSession() {
+  accessToken = ""; refreshToken = ""; currentAdmin = null; adminOK = false;
+  try { sessionStorage.removeItem("khial_admin_access"); sessionStorage.removeItem("khial_admin_refresh"); } catch (e) {}
+}
+async function sbRequest(path, options = {}) {
+  const headers = { apikey: SB_KEY, Authorization: "Bearer " + (options.token || accessToken || SB_KEY), ...(options.headers || {}) };
+  if (options.body !== undefined && !headers["Content-Type"]) headers["Content-Type"] = "application/json";
+  const response = await fetch(SB_URL + path, { method: options.method || "GET", headers, body: options.body === undefined ? undefined : (typeof options.body === "string" ? options.body : JSON.stringify(options.body)) });
+  const raw = await response.text();
+  let data = null;
+  if (raw.trim()) { try { data = JSON.parse(raw); } catch (e) { data = null; } }
+  if (!response.ok) {
+    const message = data && (data.msg || data.message || data.error_description || data.error) || raw || ("HTTP " + response.status);
+    throw new Error(String(message).slice(0, 240));
+  }
+  return data;
+}
+async function checkAdminToken(token) {
+  const user = await sbRequest("/auth/v1/user", { token });
+  const allowed = await sbRequest("/rest/v1/rpc/is_academy_admin", { method: "POST", token, body: {} });
+  if (allowed !== true) throw new Error("این حساب اجازه مدیریت آکادمی را ندارد.");
+  return user;
+}
+async function restoreAdminSession() {
+  try {
+    accessToken = sessionStorage.getItem("khial_admin_access") || "";
+    refreshToken = sessionStorage.getItem("khial_admin_refresh") || "";
+    if (!accessToken) return;
+    currentAdmin = await checkAdminToken(accessToken);
+    adminOK = true;
+  } catch (e) { clearAdminSession(); }
+}
+async function loadPublishedContent() {
+  try {
+    const rows = await sbRequest("/rest/v1/site_content?select=content&id=eq.main", { token: SB_KEY });
+    if (Array.isArray(rows) && rows[0] && rows[0].content) {
+      published = withDefaults(rows[0].content);
+      delete published.passHash;
+    }
+  } catch (e) { console.warn("Published content could not be loaded:", e.message); }
+}
+async function uploadDataUrl(dataUrl) {
+  const blob = await (await fetch(dataUrl)).blob();
+  const ext = blob.type === "image/png" ? "png" : blob.type === "image/webp" ? "webp" : blob.type === "image/gif" ? "gif" : "jpg";
+  const path = "site/" + uid() + "-" + (crypto.randomUUID ? crypto.randomUUID() : uid()) + "." + ext;
+  const encodedPath = path.split("/").map(encodeURIComponent).join("/");
+  const response = await fetch(SB_URL + "/storage/v1/object/academy-works/" + encodedPath, {
+    method: "POST",
+    headers: { apikey: SB_KEY, Authorization: "Bearer " + accessToken, "Content-Type": blob.type || "image/jpeg", "x-upsert": "false" },
+    body: blob
+  });
+  const raw = await response.text();
+  if (!response.ok) {
+    let detail = raw;
+    try { const parsed = JSON.parse(raw); detail = parsed.message || parsed.error || parsed.statusCode || raw; } catch (e) {}
+    throw new Error("آپلود تصویر انجام نشد: " + String(detail).slice(0, 160));
+  }
+  return SB_URL + "/storage/v1/object/public/academy-works/" + encodedPath;
+}
+async function uploadPreparedImage(file) {
+  const dataUrl = await prepareImage(file);
+  return uploadDataUrl(dataUrl);
+}
 
 /* ---------- ابزارها ---------- */
 const $ = id => document.getElementById(id);
@@ -1206,7 +1269,7 @@ const hashPw = p => sha256(SALT + normalizeDigits(p));
 function withDefaults(d) {
   d = d || {};
   d.version = d.version || 0;
-  d.passHash = d.passHash || "";
+  delete d.passHash;
   const s = d.settings = d.settings || {};
   ["heroText", "about", "contactTitle", "contactText", "rubika"].forEach(k => { if (typeof s[k] !== "string") s[k] = ""; });
   s.heroLines = Array.isArray(s.heroLines) ? s.heroLines : [];
@@ -1296,17 +1359,24 @@ const kv = {
 let draft = null, draftBase = 0, saveTimer = null, siteDirty = true;
 
 async function loadDraft() {
-  let d = await kv.get("draft");
+  let d = null;
+  if (adminOK) {
+    try {
+      const rows = await sbRequest("/rest/v1/site_drafts?select=content&id=eq.main");
+      if (Array.isArray(rows) && rows[0] && rows[0].content) d = rows[0].content;
+    } catch (e) { console.warn("Remote draft unavailable:", e.message); }
+  }
+  if (!d) d = await kv.get("draft");
   if (!d) d = readBackup();
   if (d && d.data && !(published.version > d.base)) {
     draft = withDefaults(d.data);
     draftBase = d.base;
   } else {
-    if (d) await kv.del("draft");   /* نسخه‌ی منتشرشده جدیدتر است؛ پیش‌نویس قدیمی کهنه شده */
+    if (d && d.data) await kv.del("draft");
     draft = null;
   }
 }
-const isAdmin = () => { try { return sessionStorage.getItem("khial_admin") === "1"; } catch (e) { return adminOK; } };
+const isAdmin = () => !!(adminOK && accessToken);
 let adminOK = false;
 const editable = () => draft || published;                       /* برای خواندن در مدیریت */
 const shown = () => (isAdmin() && draft) ? draft : published;      /* برای نمایش سایت */
@@ -1325,8 +1395,20 @@ function edit(fn) {
 }
 async function persist() {
   if (!draft) return;
-  const ok = await kv.set("draft", { base: draftBase, data: draft });
-  $("memWarn").hidden = ok;
+  const localOk = await kv.set("draft", { base: draftBase, data: draft });
+  if (!isAdmin()) { $("memWarn").hidden = false; return; }
+  try {
+    await sbRequest("/rest/v1/site_drafts?on_conflict=id", {
+      method: "POST",
+      headers: { Prefer: "resolution=merge-duplicates,return=minimal" },
+      body: { id: "main", content: { base: draftBase, data: draft }, updated_by: currentAdmin.id }
+    });
+    $("memWarn").hidden = true;
+  } catch (e) {
+    $("memWarn").hidden = false;
+    console.error("Draft save failed:", e);
+    if (!localOk) toast("ذخیره‌ی پیش‌نویس انجام نشد: " + e.message);
+  }
 }
 /* ذخیره‌ی فوری: هنگام بستن یا ترک صفحه، پیش‌نویس همان لحظه (هم‌زمان) نسخه‌ی پشتیبان می‌شود */
 function flushNow() {
@@ -1341,6 +1423,8 @@ document.addEventListener("visibilitychange", () => { if (document.visibilitySta
 
 async function discardDraft() {
   clearTimeout(saveTimer);
+  try { if (isAdmin()) await sbRequest("/rest/v1/site_drafts?id=eq.main", { method: "DELETE" }); }
+  catch (e) { toast("حذف پیش‌نویس انجام نشد: " + e.message); return; }
   draft = null;
   await kv.del("draft");
   siteDirty = true;
@@ -1357,30 +1441,50 @@ function buildHtml(data) {
   if (!re.test(PRISTINE)) throw new Error("بلوک داده در فایل پیدا نشد.");
   return PRISTINE.replace(re, (m, a, b) => a + "\n" + json + "\n" + b);
 }
-function publish() {
-  const data = clone(editable());
-  data.version = Date.now();
-  const html = buildHtml(data);
-  const blob = new Blob([html], { type: "text/html;charset=utf-8" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "index.html";
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
-  const mb = blob.size / 1048576;
-  toast("فایل index.html ساخته شد (" + fa(mb.toFixed(1)) + " مگابایت). آن را روی هاست آپلود کنید.");
+async function publish() {
+  if (!isAdmin()) throw new Error("نشست مدیریت معتبر نیست؛ دوباره وارد شو.");
+  const button = $("publishBtn");
+  button.disabled = true;
+  button.textContent = "در حال انتشار...";
+  try {
+    const data = clone(editable());
+    for (const work of data.works || []) {
+      if (typeof work.image === "string" && work.image.startsWith("data:image/")) {
+        work.image = await uploadDataUrl(work.image);
+      }
+    }
+    data.version = Date.now();
+    delete data.passHash;
+    await sbRequest("/rest/v1/site_content?on_conflict=id", {
+      method: "POST",
+      headers: { Prefer: "resolution=merge-duplicates,return=minimal" },
+      body: { id: "main", content: data, updated_by: currentAdmin.id }
+    });
+    await sbRequest("/rest/v1/site_drafts?id=eq.main", { method: "DELETE" });
+    published = withDefaults(data);
+    draft = null;
+    draftBase = published.version;
+    await kv.del("draft");
+    siteDirty = true;
+    buildAdmin();
+    updateStatus();
+    $("memWarn").hidden = true;
+    toast("تغییرات مستقیم منتشر شد؛ سایت برای همه به‌روز است.");
+    renderSite();
+  } finally {
+    button.disabled = false;
+    button.textContent = "انتشار مستقیم تغییرات";
+  }
 }
 function updateStatus() {
   const bar = $("statusBar");
   bar.classList.toggle("dirty", !!draft);
   $("statusText").textContent = draft
-    ? "تغییراتی دارید که هنوز منتشر نشده‌اند. دکمه‌ی زیر را بزنید و فایل را روی هاست بگذارید."
+    ? "تغییراتی دارید که هنوز منتشر نشده‌اند. برای نمایش عمومی، آن‌ها را مستقیم منتشر کنید."
     : "همه‌چیز با نسخه‌ی منتشرشده یکی است.";
   $("discardBtn").style.display = draft ? "" : "none";
 }
-$("publishBtn").onclick = () => { try { publish(); } catch (e) { toast(e.message); } };
+$("publishBtn").onclick = () => { publish().catch(e => toast("انتشار انجام نشد: " + e.message)); };
 $("discardBtn").onclick = () => {
   const b = $("discardBtn");
   if (!b.dataset.sure) {
@@ -1874,7 +1978,7 @@ function renderWorksAdmin() {
       const f = fi.files[0];
       if (!f) return;
       try {
-        const data = await prepareImage(f);
+        const data = await uploadPreparedImage(f);
         edit(d => { d.works.find(x => x.id === id).image = data; });
         renderWorksAdmin();
         toast("عکس عوض شد");
@@ -1917,12 +2021,12 @@ $("addBtn").onclick = async () => {
   $("addBtn").disabled = true;
   setStatus("در حال آماده‌سازی عکس...");
   try {
-    const image = await prepareImage(file);
+    const image = await uploadPreparedImage(file);
     const work = { id: uid(), title, category: $("catInput").value.trim(), description: $("descInput").value.trim(), image };
     edit(d => { d.works.unshift(work); });
     $("imageInput").value = ""; $("fileName").textContent = "";
     $("titleInput").value = ""; $("catInput").value = ""; $("descInput").value = "";
-    setStatus("به پیش‌نویس اضافه شد. برای نمایش به همه، «دانلود نسخه‌ی نهایی» را بزنید.");
+    setStatus("به پیش‌نویس اضافه شد. برای نمایش به همه، «انتشار مستقیم تغییرات» را بزنید.");
     renderWorksAdmin();
   } catch (err) {
     setStatus(err && err.message ? err.message : "خطا در ذخیره‌ی عکس.", true);
@@ -1984,24 +2088,10 @@ function buildAccount() {
   field(box, "آیدی روبیکا (بدون @)", s.rubika, v => edit(d => { d.settings.rubika = v.trim(); }), { dir: "ltr", ph: "Sobhan12546" });
   box.appendChild(el("p", "notice", "این آیدی در بخش «خدمات» و «تماس» سایت، همراه با دکمه‌ی «کپی آیدی» نمایش داده می‌شود."));
 
-  box.appendChild(el("h3", "sub", "تغییر رمز مدیریت"));
-  const p1 = field(box, "رمز جدید", "", () => {}, { dir: "ltr" });
-  const p2 = field(box, "تکرار رمز جدید", "", () => {}, { dir: "ltr" });
-  p1.type = p2.type = "password";
-  p1.autocomplete = p2.autocomplete = "new-password";
-  const b = el("button", "primary", "تغییر رمز");
-  b.type = "button";
-  const msg = el("p", "notice");
-  b.onclick = () => {
-    const a = normalizeDigits(p1.value);
-    if (a.length < 6) { msg.textContent = "رمز باید حداقل ۶ کاراکتر باشد."; return; }
-    if (p1.value !== p2.value) { msg.textContent = "دو رمز یکی نیست."; return; }
-    const h = hashPw(p1.value);
-    edit(d => { d.passHash = h; });
-    p1.value = p2.value = "";
-    msg.textContent = "رمز جدید در پیش‌نویس ثبت شد و بعد از انتشار فایل نهایی روی هاست فعال می‌شود.";
-  };
-  box.append(b, msg);
+  box.appendChild(el("h3", "sub", "حساب مدیریت"));
+  box.appendChild(el("p", "notice", "ورود مدیریت با احراز هویت امن Supabase انجام می‌شود."));
+  box.appendChild(el("p", "notice", "ایمیل حساب: " + (currentAdmin && currentAdmin.email ? currentAdmin.email : "مدیر واردشده")));
+  box.appendChild(smallBtn("خروج از حساب مدیریت", () => logout()));
 }
 
 /* ---------- انتقال اطلاعات قدیمی ---------- */
@@ -2249,23 +2339,46 @@ function buildAdmin() {
 }
 
 /* ---------- ورود و خروج ---------- */
-function doLogin() {
-  if (hashPw($("passwordInput").value) === published.passHash) {
+async function doLogin() {
+  const email = $("emailInput").value.trim().toLowerCase();
+  const password = $("passwordInput").value;
+  const errorBox = $("loginError");
+  errorBox.style.display = "none";
+  if (!email || !password) { errorBox.textContent = "ایمیل و رمز عبور را وارد کن."; errorBox.style.display = "block"; return; }
+  const button = $("loginBtn");
+  button.disabled = true;
+  try {
+    const response = await fetch(SB_URL + "/auth/v1/token?grant_type=password", {
+      method: "POST",
+      headers: { apikey: SB_KEY, "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
+    const raw = await response.text();
+    let data = {};
+    try { data = raw ? JSON.parse(raw) : {}; } catch (e) {}
+    if (!response.ok || !data.access_token) throw new Error(data.msg || data.message || "ایمیل یا رمز عبور درست نیست.");
+    accessToken = data.access_token;
+    refreshToken = data.refresh_token || "";
+    currentAdmin = await checkAdminToken(accessToken);
     adminOK = true;
-    try { sessionStorage.setItem("khial_admin", "1"); } catch (e) {}
+    try { sessionStorage.setItem("khial_admin_access", accessToken); sessionStorage.setItem("khial_admin_refresh", refreshToken); } catch (e) {}
     $("passwordInput").value = "";
-    $("loginError").style.display = "none";
+    await loadDraft();
     siteDirty = true;
     navigate("#admin");
-  } else {
-    $("loginError").style.display = "block";
-  }
+  } catch (e) {
+    clearAdminSession();
+    errorBox.textContent = e.message || "ورود انجام نشد.";
+    errorBox.style.display = "block";
+  } finally { button.disabled = false; }
 }
 $("loginBtn").onclick = doLogin;
 $("passwordInput").addEventListener("keydown", e => { if (e.key === "Enter") doLogin(); });
-function logout() {
-  adminOK = false;
-  try { sessionStorage.removeItem("khial_admin"); } catch (e) {}
+$("emailInput").addEventListener("keydown", e => { if (e.key === "Enter") $("passwordInput").focus(); });
+async function logout() {
+  try { if (accessToken) await sbRequest("/auth/v1/logout", { method: "POST" }); } catch (e) {}
+  clearAdminSession();
+  draft = null;
   siteDirty = true;
   navigate("#top");
 }
@@ -2333,7 +2446,13 @@ if (matchMedia("(hover:hover)").matches && !matchMedia("(prefers-reduced-motion:
 }
 
 /* ---------- شروع ---------- */
-openKV().catch(() => { kvDb = null; }).then(loadDraft).then(route);
+(async function initializeSite() {
+  try { await openKV(); } catch (e) { kvDb = null; }
+  await loadPublishedContent();
+  await restoreAdminSession();
+  await loadDraft();
+  await route();
+})();
 </script>
 
 </body>
