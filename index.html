@@ -1036,15 +1036,7 @@ input,textarea,select{accent-color:var(--ember)}
 
 <p class="notice" id="memWarn" hidden style="color:#ff9a62;margin:0 0 14px;">اتصال ذخیره‌سازی موقتاً برقرار نیست؛ تغییرات تا برقراری اتصال فقط در همین مرورگر نگه داشته می‌شوند.</p>
 
-<!-- وضعیت انتشار -->
-<div class="statusbar" id="statusBar">
-<div id="statusText"></div>
-<div class="btns">
-<button class="primary" type="button" id="publishBtn">انتشار مستقیم تغییرات</button>
-<button class="secondary" type="button" id="discardBtn">دور ریختن تغییرات</button>
-</div>
-<p class="notice" style="margin:10px 0 0;">با انتشار، تغییرات مستقیماً در پایگاه داده ذخیره می‌شوند و برای همه‌ی بازدیدکننده‌ها نمایش داده خواهند شد.</p>
-</div>
+<!-- انتشار خودکار: تغییرات پس از ذخیره، مستقیم برای همه منتشر می‌شوند. -->
 
 <div class="tabs" role="tablist">
 <button class="tab" role="tab" data-tab="dashboard" aria-selected="true">داشبورد</button>
@@ -1433,7 +1425,7 @@ const kv = {
   }
 };
 
-let draft = null, draftBase = 0, saveTimer = null, siteDirty = true;
+let draft = null, draftBase = 0, saveTimer = null, autoPublishTimer = null, siteDirty = true, editRevision = 0, publishing = false;
 
 async function loadDraft() {
   let d = null;
@@ -1462,10 +1454,14 @@ function ensureDraft() {
 function edit(fn) {
   ensureDraft();
   fn(draft);
+  editRevision++;
   siteDirty = true;
-  clearTimeout(saveTimer);
   lsWrite(LS_BACKUP, { base: draftBase, data: draft });
-  saveTimer = setTimeout(persist, 350);
+  clearTimeout(autoPublishTimer);
+  autoPublishTimer = setTimeout(() => {
+    autoPublishTimer = null;
+    publish().catch(e => toast("انتشار خودکار انجام نشد: " + e.message));
+  }, 900);
   updateStatus();
 }
 async function persist() {
@@ -1481,8 +1477,8 @@ async function persist() {
     $("memWarn").hidden = true;
   } catch (e) {
     $("memWarn").hidden = false;
-    console.error("Draft save failed:", e);
-    if (!localOk) toast("ذخیره‌ی پیش‌نویس انجام نشد: " + e.message);
+    console.error("Draft backup failed:", e);
+    if (!localOk) toast("ذخیره‌ی پشتیبان انجام نشد: " + e.message);
   }
 }
 /* ذخیره‌ی فوری: هنگام بستن یا ترک صفحه، پیش‌نویس همان لحظه (هم‌زمان) نسخه‌ی پشتیبان می‌شود */
@@ -1518,12 +1514,10 @@ function buildHtml(data) {
 }
 async function publish() {
   if (!isAdmin()) throw new Error("نشست مدیریت معتبر نیست؛ دوباره وارد شو.");
-  const button = $("publishBtn");
-  button.disabled = true;
-  button.textContent = "در حال انتشار...";
+  if (publishing) return;
+  publishing = true;
+  const revision = editRevision;
   try {
-    clearTimeout(saveTimer);
-    saveTimer = null;
     const data = clone(editable());
     for (const work of data.works || []) {
       if (typeof work.image === "string" && work.image.startsWith("data:image/")) {
@@ -1537,42 +1531,34 @@ async function publish() {
       headers: { Prefer: "resolution=merge-duplicates,return=minimal" },
       body: { id: "main", content: data, updated_by: currentAdmin.id }
     });
-    await sbRequest("/rest/v1/site_drafts?id=eq.main", { method: "DELETE" });
     published = withDefaults(data);
-    draft = null;
-    draftBase = published.version;
-    await kv.del("draft");
+    if (revision === editRevision) {
+      await sbRequest("/rest/v1/site_drafts?id=eq.main", { method: "DELETE" });
+      draft = null;
+      draftBase = published.version;
+      await kv.del("draft");
+      try { localStorage.removeItem(LS_BACKUP); } catch (e) {}
+    } else {
+      draftBase = published.version;
+    }
     siteDirty = true;
-    buildAdmin();
-    updateStatus();
     $("memWarn").hidden = true;
-    toast("تغییرات مستقیم منتشر شد؛ سایت برای همه به‌روز است.");
     renderSite();
+    if (revision === editRevision) {
+      buildAdmin();
+      toast("تغییرات به‌صورت خودکار منتشر شد.");
+    } else {
+      clearTimeout(autoPublishTimer);
+      autoPublishTimer = setTimeout(() => {
+        autoPublishTimer = null;
+        publish().catch(e => toast("انتشار خودکار انجام نشد: " + e.message));
+      }, 300);
+    }
   } finally {
-    button.disabled = false;
-    button.textContent = "انتشار مستقیم تغییرات";
+    publishing = false;
   }
 }
-function updateStatus() {
-  const bar = $("statusBar");
-  bar.classList.toggle("dirty", !!draft);
-  $("statusText").textContent = draft
-    ? "تغییراتی دارید که هنوز منتشر نشده‌اند. برای نمایش عمومی، آن‌ها را مستقیم منتشر کنید."
-    : "همه‌چیز با نسخه‌ی منتشرشده یکی است.";
-  $("discardBtn").style.display = draft ? "" : "none";
-}
-$("publishBtn").onclick = () => { publish().catch(e => toast("انتشار انجام نشد: " + e.message)); };
-$("discardBtn").onclick = () => {
-  const b = $("discardBtn");
-  if (!b.dataset.sure) {
-    b.dataset.sure = "1";
-    b.textContent = "مطمئنی؟ دوباره بزن";
-    setTimeout(() => { b.dataset.sure = ""; b.textContent = "دور ریختن تغییرات"; }, 3000);
-    return;
-  }
-  b.dataset.sure = ""; b.textContent = "دور ریختن تغییرات";
-  discardDraft();
-};
+function updateStatus() { /* نوار وضعیت انتشار حذف شده است. */ }
 
 /* ============================================================
    نمایش سایت
@@ -2103,7 +2089,7 @@ $("addBtn").onclick = async () => {
     edit(d => { d.works.unshift(work); });
     $("imageInput").value = ""; $("fileName").textContent = "";
     $("titleInput").value = ""; $("catInput").value = ""; $("descInput").value = "";
-    setStatus("به پیش‌نویس اضافه شد. برای نمایش به همه، «انتشار مستقیم تغییرات» را بزنید.");
+    setStatus("نمونه‌کار اضافه شد؛ در حال انتشار خودکار...");
     renderWorksAdmin();
   } catch (err) {
     setStatus(err && err.message ? err.message : "خطا در ذخیره‌ی عکس.", true);
@@ -2250,7 +2236,6 @@ function buildDashboard() {
   const box = $("dash");
   box.innerHTML = "";
   const d = editable();
-  const hasDraft = !!draft;
   const when = published.version ? new Date(published.version).toLocaleString("fa-IR") : "هنوز منتشر نشده";
   const cards = [
     ["نمونه‌کار در سایت", fa(published.works.length)],
@@ -2265,9 +2250,6 @@ function buildDashboard() {
     grid.appendChild(c);
   });
   box.appendChild(grid);
-  box.appendChild(el("p", "dash-state" + (hasDraft ? " dirty" : ""),
-    hasDraft ? "تغییراتی دارید که هنوز منتشر نشده‌اند. با دکمه‌ی «انتشار مستقیم تغییرات» آن‌ها را برای همه منتشر کنید."
-             : "همه‌چیز با نسخه‌ی منتشرشده یکی است."));
   const acts = el("div", "dash-actions");
   acts.appendChild(smallBtn("افزودن نمونه‌کار", () => navigate("#admin/works"), "primary"));
   acts.appendChild(smallBtn("ویرایش متن‌ها", () => navigate("#admin/texts")));
