@@ -953,6 +953,147 @@ input,textarea,select{accent-color:var(--ember)}
   #siteView .page[data-page="works"] .filters { padding:0 18px; }
 }
 
+
+/* ---------- کارت‌های نمونه‌کار مطابق طرح مرجع ---------- */
+#gallery {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  column-count: initial;
+}
+#featured {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+}
+#gallery .piece, #featured .piece { margin: 0; min-width: 0; }
+.artwork-card { position: relative; width: 100%; }
+.artwork-frame {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.78 / 1;
+  min-height: 230px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 34px;
+  background: #082653;
+  box-shadow: 0 18px 42px -24px rgba(5, 24, 58, .55);
+  cursor: zoom-in;
+  text-align: right;
+}
+.artwork-frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .55s ease;
+}
+.artwork-frame:hover img { transform: scale(1.035); }
+.artwork-shade {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: linear-gradient(180deg, rgba(2, 12, 34, .04) 12%, rgba(4, 24, 65, .18) 42%, rgba(0, 76, 190, .96) 100%);
+  pointer-events: none;
+}
+.artwork-caption {
+  position: absolute;
+  right: 24px;
+  left: 24px;
+  bottom: 92px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  padding: 0;
+  color: #fff;
+  text-align: right;
+}
+.artwork-caption .frame-title {
+  display: block;
+  max-width: 100%;
+  color: #fff;
+  font-family: var(--display);
+  font-size: clamp(21px, 2.4vw, 32px);
+  line-height: 1.5;
+  font-weight: 400;
+  text-shadow: 0 2px 12px rgba(0,0,0,.3);
+}
+.artwork-caption .frame-category {
+  display: -webkit-box;
+  max-width: 100%;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  color: rgba(255,255,255,.92);
+  font-family: var(--body);
+  font-size: clamp(13px, 1.5vw, 19px);
+  line-height: 1.8;
+  font-weight: 500;
+  text-shadow: 0 2px 10px rgba(0,0,0,.35);
+}
+.artwork-votes {
+  position: absolute;
+  z-index: 2;
+  right: 16px;
+  left: 16px;
+  bottom: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  direction: ltr;
+}
+.vote-pill {
+  display: inline-flex;
+  min-width: 76px;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 15px;
+  border: 1px solid rgba(255,255,255,.82);
+  border-radius: 999px;
+  background: #fff;
+  color: #18243a;
+  font-family: var(--body);
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform .18s, background .18s, color .18s;
+}
+.vote-pill:hover { transform: translateY(-2px); }
+.vote-pill.selected, .vote-pill.vote-score {
+  background: #092c60;
+  border-color: rgba(255,255,255,.24);
+  color: #fff;
+}
+.vote-pill.vote-score { cursor: default; min-width: 102px; }
+@media (max-width: 640px) {
+  #gallery, #featured {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+  .artwork-frame {
+    width: 100%;
+    aspect-ratio: 1.72 / 1;
+    min-height: 0;
+    border-radius: 32px;
+  }
+  .artwork-caption { right: 22px; left: 22px; bottom: 86px; }
+  .artwork-caption .frame-title { font-size: 25px; }
+  .artwork-caption .frame-category { font-size: 17px; }
+  .artwork-votes { bottom: 16px; gap: 8px; }
+  .vote-pill { min-width: 78px; min-height: 47px; font-size: 16px; }
+  .vote-pill.vote-score { min-width: 104px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .artwork-frame img, .vote-pill { transition: none; }
+}
+
 </style>
 </head>
 <body>
@@ -1771,10 +1912,33 @@ function renderFilters() {
   });
 }
 
-/* کارت نمونه‌کار: تصویر جمع‌وجور با عنوان شناور روی تصویر */
+/* کارت نمونه‌کار: کارت تصویری تمام‌عرض با گرادیان و واکنش‌های محلی */
+function readWorkVotes(id) {
+  try {
+    const all = JSON.parse(localStorage.getItem("khial_work_votes") || "{}");
+    return all[id] || { likes: 0, dislikes: 0, mine: "" };
+  } catch (e) { return { likes: 0, dislikes: 0, mine: "" }; }
+}
+function saveWorkVote(id, vote) {
+  try {
+    const all = JSON.parse(localStorage.getItem("khial_work_votes") || "{}");
+    const old = all[id] || { likes: 0, dislikes: 0, mine: "" };
+    if (old.mine === vote) {
+      old[vote === "like" ? "likes" : "dislikes"] = Math.max(0, old[vote === "like" ? "likes" : "dislikes"] - 1);
+      old.mine = "";
+    } else {
+      if (old.mine) old[old.mine === "like" ? "likes" : "dislikes"] = Math.max(0, old[old.mine === "like" ? "likes" : "dislikes"] - 1);
+      old[vote === "like" ? "likes" : "dislikes"]++;
+      old.mine = vote;
+    }
+    all[id] = old;
+    localStorage.setItem("khial_work_votes", JSON.stringify(all));
+    return old;
+  } catch (e) { return readWorkVotes(id); }
+}
 function workCard(work, onOpen) {
-  const fig = el("figure", "piece");
-  const btn = el("button", "frame");
+  const fig = el("figure", "piece artwork-card");
+  const btn = el("button", "frame artwork-frame");
   btn.type = "button";
   btn.setAttribute("aria-label", "نمایش بزرگ: " + work.title);
   const img = document.createElement("img");
@@ -1784,14 +1948,37 @@ function workCard(work, onOpen) {
   img.decoding = "async";
   btn.appendChild(img);
 
-  const caption = el("span", "frame-caption");
-  if (work.category) caption.appendChild(el("span", "frame-category", work.category));
-  caption.appendChild(el("span", "frame-title", work.title));
-  btn.appendChild(caption);
+  const shade = el("span", "artwork-shade");
+  const caption = el("span", "frame-caption artwork-caption");
+  caption.appendChild(el("span", "frame-title", work.title || "بدون عنوان"));
+  const sub = work.description || work.category || "";
+  if (sub) caption.appendChild(el("span", "frame-category", sub));
+  shade.appendChild(caption);
+  btn.appendChild(shade);
   btn.onclick = () => onOpen(btn);
-
   fig.appendChild(btn);
-  if (work.description) fig.appendChild(el("div", "d", work.description));
+
+  const votes = el("div", "artwork-votes");
+  const current = readWorkVotes(work.id);
+  const down = el("button", "vote-pill" + (current.mine === "dislike" ? " selected" : ""), "👎 " + fa(current.dislikes));
+  down.type = "button";
+  down.setAttribute("aria-label", "نپسندیدم؛ فقط روی همین دستگاه ذخیره می‌شود");
+  const score = el("span", "vote-pill vote-score", fa(current.likes - current.dislikes) + " امتیاز");
+  const up = el("button", "vote-pill" + (current.mine === "like" ? " selected" : ""), "👍 " + fa(current.likes));
+  up.type = "button";
+  up.setAttribute("aria-label", "پسندیدم؛ فقط روی همین دستگاه ذخیره می‌شود");
+  const updateVotes = vote => {
+    const next = saveWorkVote(work.id, vote);
+    down.textContent = "👎 " + fa(next.dislikes);
+    up.textContent = "👍 " + fa(next.likes);
+    score.textContent = fa(next.likes - next.dislikes) + " امتیاز";
+    down.classList.toggle("selected", next.mine === "dislike");
+    up.classList.toggle("selected", next.mine === "like");
+  };
+  down.onclick = e => { e.stopPropagation(); updateVotes("dislike"); };
+  up.onclick = e => { e.stopPropagation(); updateVotes("like"); };
+  votes.append(down, score, up);
+  fig.appendChild(votes);
   return fig;
 }
 function renderGallery() {
