@@ -994,7 +994,10 @@ input,textarea,select{accent-color:var(--ember)}
 }
 .artwork-frame:hover img { transform: scale(1.035); }
 /* خنثی‌کردن محدودیت‌ها و لایه‌ی قدیمی کارت */
-#siteView .artwork-frame::after { content: none !important; }
+#siteView .artwork-frame::after,
+#siteView .page[data-page="works"] .artwork-frame::after {
+  content: none !important;
+}
 .artwork-shade {
   position: absolute;
   z-index: 1;
