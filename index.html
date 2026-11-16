@@ -997,11 +997,17 @@ input,textarea,select{accent-color:var(--ember)}
   inset: 0;
   display: block;
   background: linear-gradient(
-    180deg,
-    rgba(169, 139, 221, 0) 8%,
-    rgba(169, 139, 221, .28) 38%,
-    rgba(169, 139, 221, .72) 68%,
-    rgba(169, 139, 221, .98) 100%
+    to bottom,
+    rgba(169, 139, 221, 0) 0%,
+    rgba(169, 139, 221, 0) 24%,
+    rgba(169, 139, 221, .035) 34%,
+    rgba(169, 139, 221, .09) 43%,
+    rgba(169, 139, 221, .18) 52%,
+    rgba(169, 139, 221, .32) 62%,
+    rgba(169, 139, 221, .50) 72%,
+    rgba(169, 139, 221, .69) 82%,
+    rgba(169, 139, 221, .86) 92%,
+    rgba(169, 139, 221, .96) 100%
   );
   pointer-events: none;
 }
@@ -1280,10 +1286,10 @@ input,textarea,select{accent-color:var(--ember)}
 <div class="logo-c">خیال هنر</div>
 <h2>ورود به مدیریت</h2>
 <p class="error" id="loginError" style="display:none;">رمز عبور درست نیست.</p>
-<div id="loginForm">
+<form id="loginForm">
 <input type="password" id="passwordInput" placeholder="رمز مدیریت" autocomplete="current-password" dir="ltr">
-<button type="button" id="loginBtn">ورود</button>
-</div>
+<button type="submit" id="loginBtn">ورود</button>
+</form>
 <div class="links"><a href="#top">بازگشت به سایت</a></div>
 </div>
 </div>
@@ -2682,8 +2688,10 @@ async function doLogin() {
     errorBox.style.display = "block";
   } finally { button.disabled = false; }
 }
-$("loginBtn").onclick = doLogin;
-$("passwordInput").addEventListener("keydown", e => { if (e.key === "Enter") doLogin(); });
+$("loginForm").addEventListener("submit", e => {
+  e.preventDefault();
+  doLogin();
+});
 async function logout() {
   try { if (accessToken) await sbRequest("/auth/v1/logout", { method: "POST" }); } catch (e) {}
   clearAdminSession();
