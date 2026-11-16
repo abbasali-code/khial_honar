@@ -954,6 +954,41 @@ input,textarea,select{accent-color:var(--ember)}
 }
 
 
+/* راهنمای کوچک برای تعامل با کارت‌های نمونه‌کار */
+.gallery-tip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: fit-content;
+  max-width: calc(100% - 32px);
+  margin: 0 auto 20px;
+  padding: 8px 15px;
+  border: 1px solid rgba(146,116,207,.2);
+  border-radius: 999px;
+  background: rgba(255,255,255,.58);
+  color: #75658f;
+  font-family: var(--body);
+  font-size: 12px;
+  line-height: 1.8;
+  font-weight: 500;
+  text-align: center;
+}
+.gallery-tip-icon {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(146,116,207,.13);
+  color: var(--ember);
+  font-family: var(--body);
+  font-size: 14px;
+  line-height: 1;
+}
+.artwork-description::before { content: ""; }
+
 /* ---------- کارت‌های نمونه‌کار مطابق طرح مرجع ---------- */
 #gallery {
   display: grid !important;
@@ -1169,6 +1204,7 @@ input,textarea,select{accent-color:var(--ember)}
 <h2>آخرین آثار</h2>
 <a class="more" href="#works">همه‌ی نمونه‌کارها</a>
 </div>
+<p class="gallery-tip"><span class="gallery-tip-icon" aria-hidden="true">↗</span><span>برای مشاهده‌ی طرح کامل، روی نمونه‌کار کلیک کنید.</span></p>
 <div id="featured"></div>
 <div class="empty" id="featuredEmpty" style="display:none;">به‌زودی آثار جدید اینجا قرار می‌گیرد.</div>
 </div>
@@ -1191,6 +1227,7 @@ input,textarea,select{accent-color:var(--ember)}
 <div class="container block-sm">
 <div class="filters" id="filters" role="group" aria-label="فیلتر دسته‌بندی"></div>
 <div class="size-bar" id="sizeBar"></div>
+<p class="gallery-tip"><span class="gallery-tip-icon" aria-hidden="true">↗</span><span>برای مشاهده‌ی طرح کامل، روی نمونه‌کار کلیک کنید.</span></p>
 <div class="gallery" id="gallery"></div>
 <div class="empty" id="empty" style="display:none;">
 <strong>هنوز نمونه‌کاری اضافه نشده است.</strong>
@@ -1969,8 +2006,8 @@ function workCard(work, onOpen) {
   btn.onclick = () => onOpen(btn);
   fig.appendChild(btn);
 
-  if (work.description) {
-    fig.appendChild(el("div", "d artwork-description", work.description));
+  if (work.description && work.description.trim()) {
+    fig.appendChild(el("div", "d artwork-description", "توضیحات: " + work.description.trim()));
   }
   return fig;
 }
