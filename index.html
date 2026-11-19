@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa" dir="rtl" class="font-pending">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -75,6 +75,7 @@
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+html.font-pending #siteView { visibility: hidden; }
 body {
     font-weight: 500;
     margin: 0;
@@ -2224,7 +2225,9 @@ function applyTheme(th) {
   let fontStyle = document.getElementById("customFontStyle");
   if (cf) {
     if (!fontStyle) { fontStyle = document.createElement("style"); fontStyle.id = "customFontStyle"; document.head.appendChild(fontStyle); }
-    fontStyle.textContent = '@font-face { font-family: "SiteCustom"; src: url("' + cf + '") format("woff2"), url("' + cf + '"); font-display: swap; }';
+    const mime = (cf.match(/^data:([^;,]+)/i) || [,"font/ttf"])[1].toLowerCase();
+    const format = mime.includes("woff2") ? "woff2" : mime.includes("woff") ? "woff" : (mime.includes("opentype") || mime.includes("otf")) ? "opentype" : "truetype";
+    fontStyle.textContent = '@font-face { font-family: "SiteCustom"; src: url("' + cf + '") format("' + format + '"); font-display: block; }';
   } else if (fontStyle) fontStyle.textContent = "";
   const st = document.documentElement.style;
   st.setProperty("--ink", t.bg);
@@ -2905,11 +2908,25 @@ if (matchMedia("(hover:hover)").matches && !matchMedia("(prefers-reduced-motion:
 
 /* ---------- شروع ---------- */
 (async function initializeSite() {
-  try { await openKV(); } catch (e) { kvDb = null; }
-  await loadPublishedContent();
-  await restoreAdminSession();
-  await loadDraft();
-  await route();
+  try {
+    try { await openKV(); } catch (e) { kvDb = null; }
+    await loadPublishedContent();
+    await restoreAdminSession();
+    await loadDraft();
+    await route();
+
+    if (!isAdmin()) {
+      const theme = shown().settings.theme || {};
+      const customData = theme.customFont && theme.customFont.data;
+      if (theme.head === "custom" && customData) {
+        await document.fonts.load('400 16px "SiteCustom"');
+      }
+    }
+  } catch (e) {
+    console.warn("Site initialization:", e);
+  } finally {
+    document.documentElement.classList.remove("font-pending");
+  }
 })();
 </script>
 
