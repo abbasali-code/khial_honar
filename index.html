@@ -1216,185 +1216,6 @@ input,textarea,select{accent-color:var(--ember)}
 
 
 
-/* ---------- پرداخت بصری خیال‌هنر ---------- */
-#siteView { isolation: isolate; }
-.site-header {
-  background: color-mix(in srgb, var(--ink) 86%, transparent);
-  border-bottom-color: color-mix(in srgb, var(--ember) 18%, var(--line));
-  box-shadow: 0 8px 30px -26px var(--paper);
-}
-.nav { min-height: 76px; }
-.logo { gap: 13px; letter-spacing: -.4px; }
-.logo-mark {
-  border: 1px solid color-mix(in srgb, var(--paper) 12%, transparent);
-  box-shadow: 0 8px 22px -12px var(--ember);
-  transition: transform .25s ease, border-radius .25s ease;
-}
-.logo:hover .logo-mark { transform: rotate(-7deg) translateY(-2px); border-radius: 18px 10px 18px 10px; }
-.menu a { transition: color .2s ease, background .2s ease, transform .2s ease; }
-.menu a:hover { transform: translateY(-2px); background: color-mix(in srgb, var(--ember) 10%, var(--raise)); }
-.menu a.on { background: color-mix(in srgb, var(--ember) 11%, transparent); }
-
-.hero {
-  min-height: min(850px, calc(100svh - 76px));
-  padding: clamp(64px, 9vw, 112px) 0 clamp(62px, 8vw, 100px);
-  background:
-    radial-gradient(ellipse at 8% 76%, color-mix(in srgb, var(--ember) 13%, transparent), transparent 42%),
-    linear-gradient(145deg, color-mix(in srgb, var(--raise) 42%, var(--ink)), var(--ink) 62%);
-  border-bottom: 1px solid color-mix(in srgb, var(--ember) 15%, var(--line));
-}
-.hero:before {
-  background:
-    radial-gradient(520px circle at var(--mx) var(--my), color-mix(in srgb, var(--ember) 17%, transparent), transparent 70%),
-    radial-gradient(ellipse at 10% 90%, color-mix(in srgb, var(--ember) 9%, transparent), transparent 55%);
-}
-.hero:after { opacity: .22; background-size: 84px 84px; }
-.hero .container { z-index: 1; }
-.hero .container:before {
-  content: "خ";
-  position: absolute;
-  z-index: -1;
-  left: -1.5%;
-  top: -1.1em;
-  color: var(--ember);
-  opacity: .055;
-  font-family: var(--display);
-  font-size: clamp(260px, 42vw, 620px);
-  line-height: 1;
-  pointer-events: none;
-  user-select: none;
-}
-.hero-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 11px;
-  margin: 0 0 24px;
-  padding: 8px 15px;
-  color: var(--ash);
-  border: 1px solid color-mix(in srgb, var(--ember) 24%, var(--line));
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--raise) 76%, transparent);
-  font-size: 13px;
-  letter-spacing: .1px;
-}
-.hero-tag-dot {
-  width: 8px;
-  height: 8px;
-  flex: 0 0 8px;
-  border-radius: 50%;
-  background: var(--ember);
-  box-shadow: 0 0 0 5px color-mix(in srgb, var(--ember) 13%, transparent), 0 0 18px color-mix(in srgb, var(--ember) 55%, transparent);
-}
-.hero h1 { max-width: 1050px; letter-spacing: -2px; text-wrap: balance; }
-.hero h1 .row:nth-child(2) > span { text-shadow: 0 12px 40px color-mix(in srgb, var(--ember) 16%, transparent); }
-.hero-foot { max-width: 1050px; margin-top: clamp(26px, 4vw, 46px); }
-.hero-foot p { max-width: 470px; }
-.actions { gap: 13px; }
-.btn {
-  border-radius: 999px;
-  padding: 13px 25px;
-  box-shadow: 0 12px 28px -18px var(--ember);
-  transition: transform .22s ease, box-shadow .22s ease, background .22s ease, border-color .22s ease;
-}
-.btn:hover { transform: translateY(-3px); box-shadow: 0 16px 30px -17px var(--ember); }
-.btn.ghost { box-shadow: none; }
-.block { padding-top: clamp(68px, 8vw, 104px); }
-.section-head { padding-bottom: 23px; margin-bottom: 30px; }
-.section-head h2 { letter-spacing: -.7px; }
-.more { display: inline-flex; align-items: center; gap: 8px; }
-.more:after { content: "←"; transition: transform .2s ease; }
-.more:hover:after { transform: translateX(-4px); }
-
-#featured { gap: clamp(14px, 2vw, 26px); }
-#featured .piece { min-width: 0; }
-.piece { transition: transform .3s ease; }
-#featured .piece:hover { transform: translateY(-5px); }
-.artwork-frame {
-  border-radius: 25px;
-  box-shadow: 0 22px 48px -30px color-mix(in srgb, var(--paper) 55%, transparent);
-  outline: 1px solid color-mix(in srgb, var(--ember) 18%, transparent);
-  outline-offset: -1px;
-}
-.artwork-frame img { transition: transform .7s cubic-bezier(.2,.75,.25,1), filter .5s ease; }
-.artwork-frame:hover img { transform: scale(1.045); }
-.artwork-shade {
-  background: linear-gradient(180deg, transparent 35%, color-mix(in srgb, var(--paper) 78%, transparent) 100%);
-}
-.artwork-caption { padding: 24px; }
-.artwork-category {
-  display: inline-flex;
-  padding: 5px 12px;
-  border: 1px solid color-mix(in srgb, var(--ember) 25%, transparent);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--ink) 78%, transparent);
-}
-.artwork-details { padding: 14px 4px 0; }
-.page-head { padding-top: clamp(66px, 8vw, 100px); padding-bottom: 42px; }
-.page-head h1 { letter-spacing: -1.2px; }
-.page-kicker { letter-spacing: .2px; }
-.chip { transition: transform .2s ease, color .2s ease, border-color .2s ease, background .2s ease; }
-.chip:hover { transform: translateY(-2px); }
-.chip[aria-pressed="true"] { box-shadow: 0 8px 20px -13px var(--ember); }
-.row-item { border-radius: 18px; padding-inline: 18px; }
-.row-item:hover { background: color-mix(in srgb, var(--raise) 70%, transparent); }
-.step {
-  border-radius: 24px;
-  box-shadow: 0 18px 45px -38px var(--paper);
-  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
-}
-.step:hover { transform: translateY(-5px); box-shadow: 0 24px 45px -34px var(--ember); }
-.why-card { padding: 24px 18px 0; border-top-width: 3px; }
-.cta {
-  position: relative;
-  overflow: hidden;
-  margin-top: clamp(78px, 10vw, 124px);
-  padding: clamp(54px, 7vw, 88px) 0;
-  border: 1px solid color-mix(in srgb, var(--ember) 20%, var(--line));
-  border-inline: 0;
-  background:
-    radial-gradient(ellipse at 12% 50%, color-mix(in srgb, var(--ember) 17%, transparent), transparent 52%),
-    linear-gradient(120deg, color-mix(in srgb, var(--raise) 80%, var(--ink)), var(--ink));
-}
-.cta:after {
-  content: "✳";
-  position: absolute;
-  left: 7%;
-  top: 50%;
-  transform: translateY(-50%) rotate(-12deg);
-  color: var(--ember);
-  opacity: .12;
-  font-size: clamp(100px, 18vw, 220px);
-  line-height: 1;
-  pointer-events: none;
-}
-.cta-in { position: relative; z-index: 1; }
-.page:not([hidden]) { animation: pageArrive .42s cubic-bezier(.2,.75,.25,1) both; }
-@keyframes pageArrive { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: none; } }
-
-@media (max-width: 760px) {
-  .nav { min-height: 66px; }
-  .hero { min-height: auto; padding: 72px 0 74px; }
-  .hero .container:before { left: -8%; top: -.35em; font-size: 78vw; }
-  .hero h1 { letter-spacing: -1px; font-size: clamp(48px, 13vw, 88px); }
-  .hero-foot { align-items: flex-start; gap: 24px; }
-  .hero-foot p { font-size: 15px; }
-  .actions { width: 100%; }
-  .actions .btn { flex: 1 1 auto; text-align: center; }
-  #featured { grid-template-columns: 1fr; gap: 22px; }
-  #featured .artwork-frame { aspect-ratio: 1.5 / 1; min-height: 0; }
-  .page-head { padding-top: 64px; }
-  .cta-in { align-items: flex-start; }
-}
-@media (max-width: 420px) {
-  .hero-tag { font-size: 11px; }
-  .actions .btn { padding: 12px 16px; font-size: 13px; }
-  .artwork-caption { padding: 16px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .logo-mark, .menu a, .btn, .piece, .artwork-frame img, .step, .chip { transition: none !important; }
-  .page:not([hidden]) { animation: none; }
-}
-
 /* ---------- اسکلتون بارگذاری ---------- */
 #siteLoader {
   position: fixed;
@@ -1452,6 +1273,53 @@ html:not(.font-pending) #siteLoader { display: none; }
 @media (prefers-reduced-motion: reduce) {
   #siteLoader .sk-shape { animation: none; }
 }
+
+/* ---------- تعامل لمسی و افکت موج ---------- */
+.ripple-host {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.ripple-wave {
+  position: absolute;
+  z-index: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0);
+  background: currentColor;
+  opacity: .22;
+  animation: khialRipple .62s cubic-bezier(.15,.65,.3,1) forwards;
+}
+.ripple-host > :not(.ripple-wave) { position: relative; z-index: 1; }
+@keyframes khialRipple {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: .24; }
+  100% { transform: translate(-50%, -50%) scale(var(--ripple-scale, 18)); opacity: 0; }
+}
+.btn {
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+  transition: transform .16s ease, box-shadow .2s ease, background-color .2s ease, border-color .2s ease;
+}
+.btn:active { transform: scale(.975); }
+.btn:focus-visible, .menu a:focus-visible, button:focus-visible, a:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 3px;
+}
+.menu a, .chip, .to-top, #lb button, .academy-nav-link {
+  position: relative;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ripple-wave { display: none; }
+  .btn { transition: none; }
+}
+
 </style>
 </head>
 <body>
@@ -3189,6 +3057,31 @@ if (matchMedia("(hover:hover)").matches && !matchMedia("(prefers-reduced-motion:
     document.documentElement.classList.remove("font-pending");
   }
 })();
+
+/* افکت Ripple سبک، بدون وابستگی به کتابخانه */
+(() => {
+  const selector = ".btn, .menu a, .chip, .to-top, .academy-nav-link, #lb button, button:not(.frame):not(.artwork-frame):not(.tab)";
+  document.addEventListener("pointerdown", event => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    const host = event.target.closest(selector);
+    if (!host || host.disabled || host.closest("#siteLoader")) return;
+    const rect = host.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    const diameter = Math.ceil(Math.hypot(Math.max(x, rect.width - x), Math.max(y, rect.height - y)) * 2);
+    const wave = document.createElement("span");
+    wave.className = "ripple-wave";
+    wave.style.left = x + "px";
+    wave.style.top = y + "px";
+    wave.style.width = diameter + "px";
+    wave.style.height = diameter + "px";
+    wave.style.setProperty("--ripple-scale", "1");
+    host.classList.add("ripple-host");
+    host.appendChild(wave);
+    wave.addEventListener("animationend", () => wave.remove(), { once: true });
+  }, { passive: true });
+})();
+
 </script>
 
 </body>
