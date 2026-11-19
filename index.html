@@ -1214,9 +1214,90 @@ input,textarea,select{accent-color:var(--ember)}
   .artwork-frame img { transition: none; }
 }
 
+
+/* ---------- اسکلتون بارگذاری ---------- */
+#siteLoader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: block;
+  overflow: hidden;
+  direction: rtl;
+  background: #f7f7f8;
+  color: transparent;
+  padding: 0 4%;
+}
+html:not(.font-pending) #siteLoader { display: none; }
+#siteLoader .sk-wrap { max-width: 1180px; margin: 0 auto; }
+#siteLoader .sk-header {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ececef;
+}
+#siteLoader .sk-logo { width: 132px; height: 34px; border-radius: 9px; }
+#siteLoader .sk-nav { display: flex; gap: 18px; }
+#siteLoader .sk-nav i { display: block; width: 58px; height: 11px; border-radius: 8px; }
+#siteLoader .sk-pill { width: 112px; height: 34px; border-radius: 20px; }
+#siteLoader .sk-hero { padding: clamp(64px, 10vw, 128px) 0 70px; }
+#siteLoader .sk-line { height: 13px; border-radius: 10px; margin: 0 0 17px auto; }
+#siteLoader .sk-line.short { width: 145px; }
+#siteLoader .sk-title { width: min(540px, 82%); height: clamp(34px, 5vw, 58px); border-radius: 12px; margin: 25px 0 15px auto; }
+#siteLoader .sk-title.second { width: min(390px, 64%); margin-top: 0; }
+#siteLoader .sk-copy { width: min(440px, 75%); height: 12px; margin: 30px 0 12px auto; }
+#siteLoader .sk-copy.last { width: min(320px, 56%); margin-top: 0; }
+#siteLoader .sk-actions { display: flex; gap: 12px; justify-content: flex-start; margin-top: 26px; }
+#siteLoader .sk-button { width: 132px; height: 43px; border-radius: 24px; }
+#siteLoader .sk-section { margin: 8px auto 70px; }
+#siteLoader .sk-section-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+#siteLoader .sk-heading { width: 150px; height: 24px; border-radius: 8px; }
+#siteLoader .sk-link { width: 88px; height: 12px; border-radius: 8px; }
+#siteLoader .sk-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+#siteLoader .sk-card { height: clamp(150px, 22vw, 250px); border-radius: 20px; }
+#siteLoader .sk-shape {
+  background: linear-gradient(90deg, #e9e9ec 25%, #f3f3f5 38%, #e9e9ec 62%);
+  background-size: 400% 100%;
+  animation: sk-shimmer 1.35s ease infinite;
+}
+@keyframes sk-shimmer { 0% { background-position: 100% 0; } 100% { background-position: 0 0; } }
+@media (max-width: 700px) {
+  #siteLoader .sk-nav { display: none; }
+  #siteLoader .sk-header { height: 64px; }
+  #siteLoader .sk-hero { padding: 72px 0 55px; }
+  #siteLoader .sk-cards { grid-template-columns: 1fr 1fr; gap: 12px; }
+  #siteLoader .sk-card { height: 150px; border-radius: 15px; }
+  #siteLoader .sk-card:last-child { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #siteLoader .sk-shape { animation: none; }
+}
 </style>
 </head>
 <body>
+<div id="siteLoader" role="status" aria-label="در حال بارگذاری سایت">
+  <div class="sk-wrap">
+    <div class="sk-header">
+      <div class="sk-logo sk-shape"></div>
+      <div class="sk-nav"><i class="sk-shape"></i><i class="sk-shape"></i><i class="sk-shape"></i></div>
+      <div class="sk-pill sk-shape"></div>
+    </div>
+    <div class="sk-hero">
+      <div class="sk-line short sk-shape"></div>
+      <div class="sk-title sk-shape"></div>
+      <div class="sk-title second sk-shape"></div>
+      <div class="sk-copy sk-shape"></div>
+      <div class="sk-copy last sk-shape"></div>
+      <div class="sk-actions"><div class="sk-button sk-shape"></div><div class="sk-button sk-shape"></div></div>
+    </div>
+    <div class="sk-section">
+      <div class="sk-section-head"><div class="sk-heading sk-shape"></div><div class="sk-link sk-shape"></div></div>
+      <div class="sk-cards"><div class="sk-card sk-shape"></div><div class="sk-card sk-shape"></div><div class="sk-card sk-shape"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ سایت ============ -->
 
 <!-- ============ سایت ============ -->
 <div id="siteView">
