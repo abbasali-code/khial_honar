@@ -60,6 +60,12 @@ input,textarea,select{background:#fff8fb;border-color:var(--line);color:var(--in
 @media(max-width:650px){#worksGrid.gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.work-image{height:170px;max-height:170px}.work-card{border-radius:14px}.work-overlay{right:7px;bottom:7px;left:7px;padding:5px 8px}.work-overlay h3{font-size:12px}.work-body{padding:9px 10px 11px}}
 
 </style>
+<style>
+/* Scroll text reveal */
+html.scroll-reveal-ready body [data-scroll-reveal]{opacity:0;transform:translateY(16px);transition:opacity .65s cubic-bezier(.2,.75,.25,1),transform .65s cubic-bezier(.2,.75,.25,1);transition-delay:var(--reveal-delay,0ms);will-change:opacity,transform}
+html.scroll-reveal-ready body [data-scroll-reveal].is-revealed{opacity:1;transform:translateY(0);will-change:auto}
+@media(prefers-reduced-motion:reduce){html.scroll-reveal-ready body [data-scroll-reveal]{opacity:1;transform:none;transition:none;will-change:auto}}
+</style>
 </head>
 <body>
 <header class="site-header"><div class="container nav">
@@ -237,4 +243,34 @@ $("logout").addEventListener("click",async()=>{const token=accessToken;try{if(to
 loadWorks();
 loadPublicStudents();
 </script>
+
+<script>
+(()=>{
+  const selector='body :is(h1,h2,h3,h4,h5,h6,p,li,a,button,label,summary,blockquote,figcaption,dt,dd,small,.logo,.logo-mark,.eyebrow,.page-kicker,.cap,.stat,.muted,.notice,.empty,.pill,.faq-title,.section-head,.idchip)';
+  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduced||!('IntersectionObserver' in window))return;
+  let order=0;
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting)return;
+      entry.target.classList.add('is-revealed');
+      observer.unobserve(entry.target);
+    });
+  },{threshold:.12,rootMargin:'0px 0px -32px 0px'});
+  function prepare(root=document){
+    if(root.nodeType===1&&root.matches?.(selector))mark(root);
+    root.querySelectorAll?.(selector).forEach(mark);
+  }
+  function mark(el){
+    if(el.hasAttribute('data-scroll-reveal'))return;
+    el.setAttribute('data-scroll-reveal','');
+    el.style.setProperty('--reveal-delay',Math.min((order++%4)*45,135)+'ms');
+    observer.observe(el);
+  }
+  document.documentElement.classList.add('scroll-reveal-ready');
+  prepare();
+  new MutationObserver(records=>records.forEach(record=>record.addedNodes.forEach(node=>{if(node.nodeType===1)prepare(node)}))).observe(document.body,{childList:true,subtree:true});
+})();
+</script>
+
 </body></html>
