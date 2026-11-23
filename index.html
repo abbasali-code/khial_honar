@@ -1040,6 +1040,31 @@ html.scroll-reveal-ready body [data-scroll-reveal]{opacity:0;transform:translate
 html.scroll-reveal-ready body [data-scroll-reveal].is-revealed{opacity:1;transform:translateY(0);will-change:auto}
 @media(prefers-reduced-motion:reduce){html.scroll-reveal-ready body [data-scroll-reveal]{opacity:1;transform:none;transition:none;will-change:auto}}
 </style>
+
+<style id="mobile-offcanvas-styles">
+@media (max-width:760px){
+  .nav{position:relative;flex-wrap:nowrap!important;justify-content:space-between;min-height:58px}
+  .menu{display:none!important}
+  .academy-nav-link{margin-inline-start:auto!important;margin-inline-end:0!important}
+  .mobile-nav-toggle{display:flex;flex:0 0 42px;width:42px;height:42px;margin-inline-start:0;align-items:center;justify-content:center;flex-direction:column;gap:5px;border:1px solid var(--line);border-radius:13px;background:var(--raise);color:var(--paper);padding:0;cursor:pointer}
+  .mobile-nav-toggle span{display:block;width:17px;height:2px;border-radius:2px;background:var(--paper);transition:transform .22s,opacity .22s}
+  .mobile-nav-toggle[aria-expanded="true"] span:first-child{transform:translateY(7px) rotate(45deg)}
+  .mobile-nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+  .mobile-nav-toggle[aria-expanded="true"] span:last-child{transform:translateY(-7px) rotate(-45deg)}
+}
+.mobile-nav-toggle{display:none}
+.mobile-nav-backdrop{position:fixed;inset:0;z-index:1000;background:rgba(25,18,36,.48);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.mobile-nav-drawer{position:fixed;z-index:1001;top:0;bottom:0;left:0;width:min(82vw,330px);padding:22px 18px;background:var(--ink);color:var(--paper);border-right:1px solid var(--line);box-shadow:18px 0 55px rgba(0,0,0,.2);transform:translateX(-105%);transition:transform .28s cubic-bezier(.2,.8,.2,1);visibility:hidden;overflow-y:auto;overscroll-behavior:contain;direction:rtl}
+.mobile-nav-drawer.is-open{transform:translateX(0);visibility:visible}
+.mobile-nav-heading{display:flex;align-items:center;justify-content:space-between;padding:3px 2px 18px;margin-bottom:12px;border-bottom:1px solid var(--line);font-family:var(--display);font-size:20px}
+.mobile-nav-heading button{width:34px;height:34px;border:1px solid var(--line);border-radius:10px;background:var(--raise);color:var(--paper);font-size:23px;line-height:1}
+.mobile-nav-drawer .menu{display:flex!important;flex-direction:column;gap:6px;width:100%;padding:0!important;overflow:visible!important}
+.mobile-nav-drawer .menu a{display:block;flex:none;padding:12px 13px;font-size:15px;color:var(--paper);border-radius:11px}
+.mobile-nav-drawer .menu a:hover,.mobile-nav-drawer .menu a.on{background:var(--raise);color:var(--ember)}
+.mobile-nav-drawer .menu a.on:after{display:none}
+body.mobile-nav-open{overflow:hidden}
+@media(prefers-reduced-motion:reduce){.mobile-nav-drawer,.mobile-nav-toggle span{transition:none!important}}
+</style>
 </head>
 <body>
 <div id="siteLoader" role="status" aria-label="در حال بارگذاری سایت">
@@ -1074,8 +1099,11 @@ html.scroll-reveal-ready body [data-scroll-reveal].is-revealed{opacity:1;transfo
 <a class="logo" href="#top"><span class="logo-mark">خ</span><span>خیال <em>هنر</em></span></a>
 <nav class="menu" id="menu" aria-label="منوی اصلی"></nav>
 <a class="academy-nav-link" href="./academy.html" aria-label="ورود به آکادمی هنرجویان"><span aria-hidden="true">✦</span> آکادمی هنرجویان</a>
+<button class="mobile-nav-toggle" id="mobileNavToggle" type="button" aria-label="باز کردن منو" aria-controls="mobileNavDrawer" aria-expanded="false"><span></span><span></span><span></span></button>
 </div>
 </header>
+<div class="mobile-nav-backdrop" id="mobileNavBackdrop" hidden></div>
+<aside class="mobile-nav-drawer" id="mobileNavDrawer" aria-label="منوی اصلی موبایل" aria-hidden="true"><div class="mobile-nav-heading"><span>منوی سایت</span><button type="button" id="mobileNavClose" aria-label="بستن منو">×</button></div></aside>
 
 <main>
 
@@ -2833,5 +2861,23 @@ if (matchMedia("(hover:hover)").matches && !matchMedia("(prefers-reduced-motion:
 })();
 </script>
 
+
+<script id="mobile-offcanvas-script">
+(()=>{
+ const menu=document.getElementById("menu"),drawer=document.getElementById("mobileNavDrawer");
+ const backdrop=document.getElementById("mobileNavBackdrop"),toggle=document.getElementById("mobileNavToggle");
+ const close=document.getElementById("mobileNavClose"),desktopSlot=document.querySelector(".site-header .nav");
+ if(!menu||!drawer||!toggle||!desktopSlot)return;
+ const mobile=window.matchMedia("(max-width:760px)");
+ function placeMenu(){if(mobile.matches){if(menu.parentElement!==drawer)drawer.appendChild(menu)}else{if(menu.parentElement!==desktopSlot)desktopSlot.insertBefore(menu,desktopSlot.querySelector(".academy-nav-link")) ;closeMenu()}}
+ function openMenu(){if(!mobile.matches)return;drawer.classList.add("is-open");backdrop.hidden=false;document.body.classList.add("mobile-nav-open");drawer.setAttribute("aria-hidden","false");toggle.setAttribute("aria-expanded","true");toggle.setAttribute("aria-label","بستن منو")}
+ function closeMenu(){drawer.classList.remove("is-open");backdrop.hidden=true;document.body.classList.remove("mobile-nav-open");drawer.setAttribute("aria-hidden","true");toggle.setAttribute("aria-expanded","false");toggle.setAttribute("aria-label","باز کردن منو")}
+ toggle.addEventListener("click",()=>toggle.getAttribute("aria-expanded")==="true"?closeMenu():openMenu());
+ close.addEventListener("click",closeMenu);backdrop.addEventListener("click",closeMenu);
+ drawer.addEventListener("click",e=>{if(e.target.closest("a"))closeMenu()});
+ document.addEventListener("keydown",e=>{if(e.key==="Escape")closeMenu()});
+ mobile.addEventListener?.("change",placeMenu);placeMenu();
+})();
+</script>
 </body>
 </html>
