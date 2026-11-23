@@ -73,12 +73,39 @@ html.scroll-reveal-ready body [data-scroll-reveal]{opacity:0;transform:translate
 html.scroll-reveal-ready body [data-scroll-reveal].is-revealed{opacity:1;transform:translateY(0);will-change:auto}
 @media(prefers-reduced-motion:reduce){html.scroll-reveal-ready body [data-scroll-reveal]{opacity:1;transform:none;transition:none;will-change:auto}}
 </style>
+
+<style id="academy-mobile-offcanvas-styles">
+.academy-nav-toggle{display:none}
+.academy-nav-backdrop{position:fixed;inset:0;z-index:1000;background:rgba(35,25,45,.48);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.academy-nav-drawer{position:fixed;z-index:1001;top:0;bottom:0;left:0;width:min(82vw,330px);padding:22px 18px;background:var(--paper);color:var(--ink);border-right:1px solid var(--line);box-shadow:18px 0 55px rgba(40,25,55,.18);transform:translateX(-105%);transition:transform .28s cubic-bezier(.2,.8,.2,1);visibility:hidden;overflow-y:auto;overscroll-behavior:contain;direction:rtl}
+.academy-nav-drawer.is-open{transform:translateX(0);visibility:visible}
+.academy-nav-heading{display:flex;align-items:center;justify-content:space-between;padding:3px 2px 18px;margin-bottom:12px;border-bottom:1px solid var(--line);font-size:18px;font-weight:900}
+.academy-nav-heading button{width:34px;height:34px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font-size:23px;line-height:1}
+.academy-nav-drawer .nav-links{display:flex;flex-direction:column;align-items:stretch;gap:6px}
+.academy-nav-drawer .nav-links a,.academy-nav-drawer .nav-links button{display:block;width:100%;text-align:right;padding:12px 13px;font-size:14px;color:var(--ink);border-radius:11px;background:transparent}
+.academy-nav-drawer .nav-links a:hover,.academy-nav-drawer .nav-links button:hover{background:var(--surface);color:var(--green)}
+body.academy-nav-open{overflow:hidden}
+@media(max-width:620px){
+ .site-header{z-index:50}
+ .nav{position:relative;flex-wrap:nowrap;justify-content:space-between}
+ .nav-links{display:none!important}
+ .academy-nav-toggle{display:flex;flex:0 0 42px;width:42px;height:42px;align-items:center;justify-content:center;flex-direction:column;gap:5px;border:1px solid var(--line);border-radius:13px;background:var(--surface);padding:0}
+ .academy-nav-toggle span{display:block;width:17px;height:2px;border-radius:2px;background:var(--ink);transition:transform .22s,opacity .22s}
+ .academy-nav-toggle[aria-expanded="true"] span:first-child{transform:translateY(7px) rotate(45deg)}
+ .academy-nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+ .academy-nav-toggle[aria-expanded="true"] span:last-child{transform:translateY(-7px) rotate(-45deg)}
+}
+@media(prefers-reduced-motion:reduce){.academy-nav-drawer,.academy-nav-toggle span{transition:none!important}}
+</style>
 </head>
 <body>
 <header class="site-header"><div class="container nav">
 <a class="brand" href="./index.html"><span class="brand-mark">خ</span>خیال هنر</a>
-<nav class="nav-links" aria-label="ناوبری اصلی"><a href="./index.html">صفحه اصلی</a><a href="#students">هنرجویان</a><a href="#gallery">گالری آثار</a><a href="#apply">عضویت رایگان</a><a href="./student.html">صفحه هنرجو</a><button id="adminOpen" type="button">مدیریت</button></nav>
+<nav class="nav-links" id="academyNavLinks" aria-label="ناوبری اصلی"><a href="./index.html">صفحه اصلی</a><a href="#students">هنرجویان</a><a href="#gallery">گالری آثار</a><a href="#apply">عضویت رایگان</a><a href="./student.html">صفحه هنرجو</a><button id="adminOpen" type="button">مدیریت</button></nav>
+<button class="academy-nav-toggle" id="academyNavToggle" type="button" aria-label="باز کردن منو" aria-controls="academyNavDrawer" aria-expanded="false"><span></span><span></span><span></span></button>
 </div></header>
+<div class="academy-nav-backdrop" id="academyNavBackdrop" hidden></div>
+<aside class="academy-nav-drawer" id="academyNavDrawer" aria-label="ناوبری آکادمی" aria-hidden="true"><div class="academy-nav-heading"><span>آکادمی خیال هنر</span><button type="button" id="academyNavClose" aria-label="بستن منو">×</button></div></aside>
 <main>
 <section class="hero"><div class="container hero-grid">
 <div><span class="kicker">آکادمی رایگان خیال هنر</span><h1>ایده‌ات را به <span>اثر</span> تبدیل کن.</h1><p class="hero-copy">اینجا جایی برای یادگیری، تجربه‌کردن و ساختن است. به جمع هنرجویان خیال هنر بپیوند، مهارتت را رشد بده و بهترین آثارت را با دیگران به اشتراک بگذار.</p><div class="hero-actions"><a class="button" href="#apply">شروع عضویت رایگان ←</a><a class="button secondary" href="#gallery">دیدن گالری آثار</a></div></div>
@@ -305,4 +332,22 @@ loadPublicStudents();
 })();
 </script>
 
+
+<script id="academy-mobile-offcanvas-script">
+(()=>{
+ const nav=document.getElementById("academyNavLinks"),drawer=document.getElementById("academyNavDrawer");
+ const backdrop=document.getElementById("academyNavBackdrop"),toggle=document.getElementById("academyNavToggle");
+ const close=document.getElementById("academyNavClose"),slot=document.querySelector(".site-header .nav");
+ if(!nav||!drawer||!toggle||!slot)return;
+ const mobile=window.matchMedia("(max-width:620px)");
+ function closeMenu(){drawer.classList.remove("is-open");backdrop.hidden=true;document.body.classList.remove("academy-nav-open");drawer.setAttribute("aria-hidden","true");toggle.setAttribute("aria-expanded","false");toggle.setAttribute("aria-label","باز کردن منو")}
+ function placeNav(){if(mobile.matches){if(nav.parentElement!==drawer)drawer.appendChild(nav)}else{if(nav.parentElement!==slot)slot.insertBefore(nav,toggle);closeMenu()}}
+ function openMenu(){if(!mobile.matches)return;drawer.classList.add("is-open");backdrop.hidden=false;document.body.classList.add("academy-nav-open");drawer.setAttribute("aria-hidden","false");toggle.setAttribute("aria-expanded","true");toggle.setAttribute("aria-label","بستن منو")}
+ toggle.addEventListener("click",()=>toggle.getAttribute("aria-expanded")==="true"?closeMenu():openMenu());
+ close.addEventListener("click",closeMenu);backdrop.addEventListener("click",closeMenu);
+ drawer.addEventListener("click",e=>{if(e.target.closest("a,button"))closeMenu()});
+ document.addEventListener("keydown",e=>{if(e.key==="Escape")closeMenu()});
+ mobile.addEventListener?.("change",placeNav);placeNav();
+})();
+</script>
 </body></html>
