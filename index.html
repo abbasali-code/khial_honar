@@ -1042,6 +1042,7 @@ html.scroll-reveal-ready body [data-scroll-reveal].is-revealed{opacity:1;transfo
 </style>
 
 <style id="mobile-offcanvas-styles">
+.mobile-nav-toggle{display:none}
 @media (max-width:760px){
   .nav{position:relative;flex-wrap:nowrap!important;justify-content:space-between;min-height:58px}
   .menu{display:none!important}
@@ -1052,7 +1053,6 @@ html.scroll-reveal-ready body [data-scroll-reveal].is-revealed{opacity:1;transfo
   .mobile-nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
   .mobile-nav-toggle[aria-expanded="true"] span:last-child{transform:translateY(-7px) rotate(-45deg)}
 }
-.mobile-nav-toggle{display:none}
 .mobile-nav-backdrop{position:fixed;inset:0;z-index:1000;background:rgba(25,18,36,.48);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
 .mobile-nav-drawer{position:fixed;z-index:1001;top:0;bottom:0;left:0;width:min(82vw,330px);padding:22px 18px;background:var(--ink);color:var(--paper);border-right:1px solid var(--line);box-shadow:18px 0 55px rgba(0,0,0,.2);transform:translateX(-105%);transition:transform .28s cubic-bezier(.2,.8,.2,1);visibility:hidden;overflow-y:auto;overscroll-behavior:contain;direction:rtl}
 .mobile-nav-drawer.is-open{transform:translateX(0);visibility:visible}
