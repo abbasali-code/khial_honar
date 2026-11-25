@@ -96,6 +96,29 @@ body.academy-nav-open{overflow:hidden;overscroll-behavior:none}\nhtml.scroll-rev
  .academy-nav-toggle[aria-expanded="true"] span:last-child{transform:translateY(-7px) rotate(-45deg)}
 }
 @media(prefers-reduced-motion:reduce){.academy-nav-drawer,.academy-nav-toggle span{transition:none!important}}
+
+/* Application upload controls */
+.upload-control{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.upload-button{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:42px;padding:0 16px;border:1px solid var(--line);border-radius:12px;background:var(--surface,#fff);color:var(--ink);font:inherit;font-size:12px;font-weight:800;cursor:pointer;transition:background .2s,border-color .2s,transform .2s}
+.upload-button:hover{background:var(--soft,#f5f8fc);border-color:var(--primary);transform:translateY(-1px)}
+.upload-button:disabled{opacity:.6;cursor:wait;transform:none}
+.upload-icon{display:grid;place-items:center;width:23px;height:23px;border-radius:8px;background:var(--primary-soft,#eaf2ff);color:var(--primary);font-size:17px;line-height:1}
+.upload-file-info{display:block;min-width:0;color:var(--muted);font-size:11px;overflow-wrap:anywhere}
+.sample-upload-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
+.sample-upload-card{min-width:0;padding:14px;border:1px solid var(--line);border-radius:15px;background:var(--surface,#fff)}
+.sample-upload-title{display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:12px}
+.sample-number{display:grid;place-items:center;width:24px;height:24px;border-radius:8px;background:var(--primary-soft,#eaf2ff);color:var(--primary);font-size:11px;font-weight:900}
+.sample-required{margin-right:auto;color:var(--danger);font-size:10px}
+.sample-upload-button{width:100%;min-height:40px}
+.sample-link-divider{display:flex;align-items:center;gap:8px;margin:11px 0;color:var(--muted);font-size:10px}
+.sample-link-divider:before,.sample-link-divider:after{content:"";height:1px;flex:1;background:var(--line)}
+.sample-upload-card input[type=url]{width:100%;min-width:0}
+.application-avatar-preview{width:62px;height:62px;border-radius:14px;object-fit:cover;border:1px solid var(--line);vertical-align:middle;margin:0 0 8px 8px}
+.application-samples-preview{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.application-sample-preview{display:flex;align-items:center;gap:8px;padding:7px 10px;border:1px solid var(--line);border-radius:11px;color:var(--ink);font-size:11px;text-decoration:none}
+.application-sample-preview img{width:58px;height:58px;object-fit:cover;border-radius:8px}
+.application-sample-preview:hover{border-color:var(--primary)}
+@media(max-width:700px){.sample-upload-grid{grid-template-columns:1fr}.sample-upload-card{padding:12px}.application-samples-preview{gap:7px}}
 </style>
 </head>
 <body>
@@ -127,15 +150,42 @@ body.academy-nav-open{overflow:hidden;overscroll-behavior:none}\nhtml.scroll-rev
 <div class="field"><label for="phone">شماره تلفن <span class="required">*</span></label><input id="phone" name="phone" type="tel" maxlength="20" required autocomplete="tel" inputmode="tel" placeholder="0912…"></div>
 <div class="field"><label for="rubika_id">شناسه روبیکا <span class="required">*</span></label><input id="rubika_id" name="rubika_id" maxlength="80" required placeholder="شناسه یا آیدی روبیکا"></div>
 <div class="field"><label for="avatar_emoji">تصویر پروفایل (ایموجی)</label><select id="avatar_emoji" name="avatar_emoji"><option value="🎨">🎨 هنرمند</option><option value="😀">😀 شاد</option><option value="🧑‍🎨">🧑‍🎨 نقاش</option><option value="👩‍🎨">👩‍🎨 هنرمند</option><option value="🦊">🦊 روباه</option><option value="🐼">🐼 پاندا</option><option value="🌸">🌸 گل</option><option value="⭐">⭐ ستاره</option><option value="🦋">🦋 پروانه</option><option value="🐱">🐱 گربه</option></select></div>
-<div class="field"><label for="avatar_url">لینک تصویر پروفایل (اختیاری)</label><input id="avatar_url" name="avatar_url" type="url" maxlength="500" placeholder="https://example.com/photo.jpg"></div>
+<div class="field">
+<label>تصویر پروفایل <span style="color:var(--muted);font-weight:400">(اختیاری)</span></label>
+<div class="upload-control"><button class="upload-button" type="button" id="pickApplicationAvatar"><span class="upload-icon">↑</span><span>انتخاب تصویر پروفایل</span></button><input id="applicationAvatarFile" type="file" accept="image/jpeg,image/png,image/webp,image/gif" hidden><span class="upload-file-info" id="applicationAvatarInfo">JPG، PNG یا WEBP · حداکثر ۸ مگابایت</span></div>
+<input id="avatar_url" name="avatar_url" type="url" maxlength="500" placeholder="یا لینک تصویر را وارد کن · https://..." style="margin-top:10px">
+<p class="hint" id="applicationAvatarStatus">آپلود تصویر پیشنهاد می‌شود؛ وارد کردن لینک هم امکان‌پذیر است.</p>
+</div>
 <div class="field"><label for="age">سن</label><input id="age" name="age" type="number" min="7" max="100" inputmode="numeric" placeholder="مثلاً ۱۵"></div>
 <div class="field"><label for="city">شهر محل سکونت</label><input id="city" name="city" maxlength="80" autocomplete="address-level2" placeholder="نام شهر"></div>
 <div class="field"><label for="course">زمینه مورد علاقه <span class="required">*</span></label><select id="course" name="course" required><option value="">انتخاب زمینه…</option><option>طراحی</option><option>نقاشی</option><option>گرافیک</option><option>هنر دیجیتال</option><option>سایر</option></select></div>
-<div class="field full"><label>سه نمونه‌کار (هر سه مورد الزامی هستند) <span class="required">*</span></label>
-<input id="sample_work_1" name="sample_work_1" type="url" maxlength="500" required placeholder="لینک نمونه‌کار اول · https://...">
-<input id="sample_work_2" name="sample_work_2" type="url" maxlength="500" required placeholder="لینک نمونه‌کار دوم · https://..." style="margin-top:9px">
-<input id="sample_work_3" name="sample_work_3" type="url" maxlength="500" required placeholder="لینک نمونه‌کار سوم · https://..." style="margin-top:9px">
-<p class="hint">برای بررسی درخواست، ارسال حداقل سه نمونه‌کار ضروری است.</p></div>
+<div class="field full"><label>نمونه‌کارها <span class="required">*</span><span style="color:var(--muted);font-weight:400"> · حداقل ۳ مورد</span></label>
+<div class="sample-upload-grid">
+<div class="sample-upload-card">
+<div class="sample-upload-title"><span class="sample-number">1</span><strong>نمونه‌کار اول</strong><span class="sample-required">الزامی</span></div>
+<button class="upload-button sample-upload-button" type="button" id="pickSample1"><span class="upload-icon">↑</span><span>آپلود فایل</span></button>
+<input id="sampleFile1" type="file" accept="image/jpeg,image/png,image/webp,image/gif,application/pdf" hidden>
+<span class="upload-file-info" id="sampleInfo1">تصویر یا PDF · حداکثر ۸ مگابایت</span>
+<div class="sample-link-divider"><span>یا لینک نمونه‌کار</span></div>
+<input id="sample_work_1" name="sample_work_1" type="url" maxlength="500" placeholder="https://...">
+</div><div class="sample-upload-card">
+<div class="sample-upload-title"><span class="sample-number">2</span><strong>نمونه‌کار دوم</strong><span class="sample-required">الزامی</span></div>
+<button class="upload-button sample-upload-button" type="button" id="pickSample2"><span class="upload-icon">↑</span><span>آپلود فایل</span></button>
+<input id="sampleFile2" type="file" accept="image/jpeg,image/png,image/webp,image/gif,application/pdf" hidden>
+<span class="upload-file-info" id="sampleInfo2">تصویر یا PDF · حداکثر ۸ مگابایت</span>
+<div class="sample-link-divider"><span>یا لینک نمونه‌کار</span></div>
+<input id="sample_work_2" name="sample_work_2" type="url" maxlength="500" placeholder="https://...">
+</div><div class="sample-upload-card">
+<div class="sample-upload-title"><span class="sample-number">3</span><strong>نمونه‌کار سوم</strong><span class="sample-required">الزامی</span></div>
+<button class="upload-button sample-upload-button" type="button" id="pickSample3"><span class="upload-icon">↑</span><span>آپلود فایل</span></button>
+<input id="sampleFile3" type="file" accept="image/jpeg,image/png,image/webp,image/gif,application/pdf" hidden>
+<span class="upload-file-info" id="sampleInfo3">تصویر یا PDF · حداکثر ۸ مگابایت</span>
+<div class="sample-link-divider"><span>یا لینک نمونه‌کار</span></div>
+<input id="sample_work_3" name="sample_work_3" type="url" maxlength="500" placeholder="https://...">
+</div>
+</div>
+<p class="hint">برای هر سه مورد، فایل آپلود کن یا لینک قرار بده. آپلود فایل پیشنهاد می‌شود.</p>
+</div>
 <div class="field full"><label for="message">درباره خودت و هدفت از عضویت</label><textarea id="message" name="message" maxlength="1000" placeholder="دوست داری چه چیزی یاد بگیری؟"></textarea></div>
 <div class="hp" aria-hidden="true"><label for="website">وب‌سایت</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
 </div>
@@ -220,13 +270,80 @@ const realNames=new Map(namesRows.map(item=>[item.student_id,item.full_name]));
 grid.innerHTML=rows.map(w=>{const student=w.academy_students||{};const realName=realNames.get(student.id)||student.display_name||"هنرجو";const displayName=student.display_name||"هنرجو";return '<article class="work-card"><div class="work-media"><button class="work-image-button" type="button" data-full-image="'+esc(w.image_url)+'" data-image-title="'+esc(w.title)+'" aria-label="نمایش کامل اثر '+esc(w.title)+'"><img class="work-image" loading="lazy" src="'+esc(w.image_url)+'" alt="'+esc(w.title)+'"></button></div><div class="work-body"><div class="work-detail"><strong>نام هنرجو:</strong><span>'+esc(realName)+' ('+esc(displayName)+')</span></div><div class="work-detail"><strong>نام اثر:</strong><span>'+esc(w.title)+'</span></div><div class="work-detail description"><strong>توضیحات اثر:</strong><span>'+esc(w.description||"بدون توضیحات")+'</span></div>'+(w.project_url?'<a class="work-link" target="_blank" rel="noopener noreferrer" href="'+esc(w.project_url)+'">مشاهده پروژه ↗</a>':'')+'</div></article>'}).join("")
 }catch(e){console.error("Gallery request failed:",e);grid.innerHTML='<div class="empty">دریافت گالری با خطا روبه‌رو شد. صفحه را دوباره بارگذاری کن.</div>'}
 }
+const applicationUploadBucket="academy-application-uploads";
+const allowedSampleTypes=["image/jpeg","image/png","image/webp","image/gif","application/pdf"];
+const allowedAvatarTypes=["image/jpeg","image/png","image/webp","image/gif"];
+function selectedFile(id){return $(id).files?.[0]||null}
+function setUploadInfo(id,message,success=false){const el=$(id);el.textContent=message;el.style.color=success?"var(--green)":"var(--muted)"}
+async function uploadApplicationFile(file,folder,token){
+  const ext={"image/jpeg":"jpg","image/png":"png","image/webp":"webp","image/gif":"gif","application/pdf":"pdf"}[file.type];
+  if(!ext)throw new Error("فرمت فایل پشتیبانی نمی‌شود.");
+  if(file.size>8*1024*1024)throw new Error("حجم هر فایل باید حداکثر ۸ مگابایت باشد.");
+  const path=currentApplicationUserId+"/"+folder+"/"+crypto.randomUUID()+"."+ext;
+  const upload=await fetch(SUPABASE_URL+"/storage/v1/object/"+applicationUploadBucket+"/"+path,{
+    method:"POST",headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+token,"Content-Type":file.type,"x-upsert":"false"},body:file
+  });
+  if(!upload.ok){const detail=await upload.text();throw new Error("آپلود فایل انجام نشد ("+upload.status+"): "+detail.slice(0,150))}
+  return SUPABASE_URL+"/storage/v1/object/public/"+applicationUploadBucket+"/"+path;
+}
+let currentApplicationUserId="";
+$("pickApplicationAvatar").addEventListener("click",()=>$("applicationAvatarFile").click());
+$("applicationAvatarFile").addEventListener("change",()=>{
+  const file=selectedFile("applicationAvatarFile");if(!file)return;
+  $("avatar_url").value="";
+  setUploadInfo("applicationAvatarInfo",file.name+" · "+(file.size/1024/1024).toFixed(2)+" مگابایت",true);
+  setUploadInfo("applicationAvatarStatus","تصویر هنگام ارسال درخواست آپلود می‌شود.");
+});
+$("avatar_url").addEventListener("input",()=>{
+  if($("avatar_url").value.trim()){$("applicationAvatarFile").value="";setUploadInfo("applicationAvatarInfo","فایلی انتخاب نشده است.")}
+});
+$("pickSample1").addEventListener("click",()=>$("sampleFile1").click());
+$("sampleFile1").addEventListener("change",()=>{
+  const file=selectedFile("sampleFile1");if(!file)return;
+  $("sample_work_1").value="";
+  setUploadInfo("sampleInfo1",file.name+" · "+(file.size/1024/1024).toFixed(2)+" مگابایت",true);
+});
+$("sample_work_1").addEventListener("input",()=>{
+  if($("sample_work_1").value.trim()){$("sampleFile1").value="";setUploadInfo("sampleInfo1","فایلی انتخاب نشده است.")}
+});
+$("pickSample2").addEventListener("click",()=>$("sampleFile2").click());
+$("sampleFile2").addEventListener("change",()=>{
+  const file=selectedFile("sampleFile2");if(!file)return;
+  $("sample_work_2").value="";
+  setUploadInfo("sampleInfo2",file.name+" · "+(file.size/1024/1024).toFixed(2)+" مگابایت",true);
+});
+$("sample_work_2").addEventListener("input",()=>{
+  if($("sample_work_2").value.trim()){$("sampleFile2").value="";setUploadInfo("sampleInfo2","فایلی انتخاب نشده است.")}
+});
+$("pickSample3").addEventListener("click",()=>$("sampleFile3").click());
+$("sampleFile3").addEventListener("change",()=>{
+  const file=selectedFile("sampleFile3");if(!file)return;
+  $("sample_work_3").value="";
+  setUploadInfo("sampleInfo3",file.name+" · "+(file.size/1024/1024).toFixed(2)+" مگابایت",true);
+});
+$("sample_work_3").addEventListener("input",()=>{
+  if($("sample_work_3").value.trim()){$("sampleFile3").value="";setUploadInfo("sampleInfo3","فایلی انتخاب نشده است.")}
+});
 $("applicationForm").addEventListener("submit",async e=>{
   e.preventDefault();
   const form=e.currentTarget,btn=$("submitApplication");
+  const sampleFiles=[1,2,3].map(i=>selectedFile("sampleFile"+i));
+  const sampleLinks=[1,2,3].map(i=>$("sample_work_"+i).value.trim());
+  if(sampleFiles.some((file,i)=>!file&&!sampleLinks[i])){
+    status("formStatus","برای هر سه نمونه‌کار، فایل آپلود کن یا لینک معتبر وارد کن.");return;
+  }
+  for(let i=0;i<3;i++){
+    if(sampleFiles[i]&&!allowedSampleTypes.includes(sampleFiles[i].type)){status("formStatus","نمونه‌کار "+(i+1)+" باید تصویر یا PDF باشد.");return}
+    if(sampleLinks[i]&&!sampleFiles[i]){
+      try{const u=new URL(sampleLinks[i]);if(!["http:","https:"].includes(u.protocol))throw 0}catch{status("formStatus","لینک نمونه‌کار "+(i+1)+" معتبر نیست.");return}
+    }
+  }
+  const avatarFile=selectedFile("applicationAvatarFile");
+  if(avatarFile&&(!allowedAvatarTypes.includes(avatarFile.type)||avatarFile.size>8*1024*1024)){status("formStatus","تصویر پروفایل باید JPG، PNG، WEBP یا GIF و حداکثر ۸ مگابایت باشد.");return}
   btn.disabled=true;btn.textContent="در حال ارسال…";
-  status("formStatus","در حال ارسال درخواست…",true);
+  status("formStatus","در حال ساخت حساب…",true);
   const payload=Object.fromEntries(new FormData(form).entries());
-  payload.sample_work_urls=[payload.sample_work_1,payload.sample_work_2,payload.sample_work_3].map(value=>String(value||"").trim());
+  payload.sample_work_urls=sampleLinks.map((link,i)=>sampleFiles[i]?"":link);
   delete payload.sample_work_1;delete payload.sample_work_2;delete payload.sample_work_3;
   try{
     const email=String(payload.email||"").trim().toLowerCase(),password=String(payload.password||"");
@@ -234,11 +351,26 @@ $("applicationForm").addEventListener("submit",async e=>{
     const signup=await fetch(SUPABASE_URL+"/auth/v1/signup",{method:"POST",headers:{apikey:SUPABASE_KEY,"Content-Type":"application/json"},body:JSON.stringify({email,password,data:{full_name:payload.full_name,display_name:payload.display_name}})});
     const signupData=await signup.json().catch(()=>({}));
     if(!signup.ok)throw new Error(signupData.msg||signupData.message||signupData.error_description||"ساخت حساب انجام نشد؛ شاید این ایمیل قبلاً ثبت شده باشد.");
+    const uploadToken=signupData.access_token||signupData.session?.access_token;
+    currentApplicationUserId=signupData.user?.id||signupData.id||"";
+    if((avatarFile||sampleFiles.some(Boolean))&&(!uploadToken||!currentApplicationUserId))throw new Error("حساب ساخته شد، اما نشست آپلود آماده نیست. لطفاً وضعیت تأیید ایمیل را بررسی کن یا با لینک نمونه‌کارها درخواست بده.");
+    if(avatarFile){
+      status("formStatus","در حال آپلود تصویر پروفایل…",true);
+      payload.avatar_url=await uploadApplicationFile(avatarFile,"applications/profile",uploadToken);
+    }
+    for(let i=0;i<3;i++)if(sampleFiles[i]){
+      status("formStatus","در حال آپلود نمونه‌کار "+(i+1)+" از ۳…",true);
+      payload.sample_work_urls[i]=await uploadApplicationFile(sampleFiles[i],"applications/samples",uploadToken);
+    }
+    status("formStatus","در حال ثبت درخواست…",true);
     const res=await fetch(FUNCTION_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
     const data=await res.json().catch(()=>({}));
     if(!res.ok)throw new Error(data.error||"ثبت درخواست انجام نشد.");
     form.reset();
-    status("formStatus","حساب شخصی و درخواست عضویتت همراه با سه نمونه‌کار ثبت شد. پس از بررسی و تعیین سطح توسط مدیریت، نتیجه اطلاع داده می‌شود.",true);
+    $("applicationAvatarInfo").textContent="JPG، PNG یا WEBP · حداکثر ۸ مگابایت";
+    $("applicationAvatarStatus").textContent="آپلود تصویر پیشنهاد می‌شود؛ وارد کردن لینک هم امکان‌پذیر است.";
+    $("sampleInfo1").textContent="تصویر یا PDF · حداکثر ۸ مگابایت";$("sampleInfo2").textContent="تصویر یا PDF · حداکثر ۸ مگابایت";$("sampleInfo3").textContent="تصویر یا PDF · حداکثر ۸ مگابایت";
+    status("formStatus","درخواستت همراه با سه نمونه‌کار ثبت شد. مدیریت می‌تواند فایل‌ها را مستقیم در پنل بررسی کند.",true);
   }catch(err){status("formStatus",err.message||"خطا در ارسال درخواست.")}
   finally{btn.disabled=false;btn.textContent="ارسال درخواست عضویت"}
 });
@@ -285,12 +417,18 @@ async function loadApplications(){
     if(!rows?.length){list.innerHTML='<div class="empty">درخواستی ثبت نشده است.</div>';return}
     list.innerHTML=rows.map(a=>{
       const samples=Array.isArray(a.sample_work_urls)&&a.sample_work_urls.length?a.sample_work_urls:(a.sample_work_url?[a.sample_work_url]:[]);
-      const links=samples.map((url,i)=>'<a target="_blank" rel="noopener noreferrer" href="'+esc(url)+'">نمونه‌کار '+(i+1)+' ↗</a>').join(' · ');
+      const links=samples.map((url,i)=>{
+        const safe=/^https?:\/\//i.test(url)?url:"";
+        if(!safe)return "";
+        const image=/\.(?:jpe?g|png|webp|gif)(?:[?#]|$)/i.test(safe);
+        const pdf=/\.pdf(?:[?#]|$)/i.test(safe);
+        return '<a class="application-sample-preview" target="_blank" rel="noopener noreferrer" href="'+esc(safe)+'">'+(image?'<img loading="lazy" src="'+esc(safe)+'" alt="نمونه‌کار '+(i+1)+'">': '<span class="sample-file-icon">'+(pdf?"PDF":"↗")+'</span>')+'<span>نمونه‌کار '+(i+1)+(pdf?" · فایل PDF":" · مشاهده")+'</span></a>';
+      }).join("");
       const select='<label class="application-level">سطح هنرجو <select class="level-select" data-application-level="'+esc(a.id)+'"><option value="">انتخاب سطح…</option><option value="beginner" '+(a.skill_level==="beginner"?"selected":"")+'>مبتدی</option><option value="intermediate" '+(a.skill_level==="intermediate"?"selected":"")+'>متوسط</option><option value="professional" '+(a.skill_level==="professional"?"selected":"")+'>حرفه‌ای</option></select></label>';
       const canEnroll=["pending","approved"].includes(a.status);
       return '<article class="application">'+(a.status==="rejected"?'<button class="dismiss-application" type="button" title="پنهان‌کردن درخواست" aria-label="پنهان‌کردن درخواست" data-dismiss-id="'+esc(a.id)+'">×</button>':"")+
         '<h3>'+esc(a.full_name)+' <span class="status-pill '+esc(a.status)+'">'+({pending:"در انتظار بررسی",approved:"تأییدشده (قدیمی)",rejected:"ردشده",enrolled:"ثبت‌شده در هنرجویان"}[a.status]||esc(a.status))+'</span></h3>'+
-        '<p>نام نمایشی: '+esc(a.display_name||a.full_name)+' · پروفایل: '+esc(a.avatar_emoji||"")+(a.avatar_url?" · تصویر ثبت شده":"")+'</p>'+
+        (a.avatar_url&&/^https?:\/\//i.test(a.avatar_url)&&/\.(?:jpe?g|png|webp|gif)(?:[?#]|$)/i.test(a.avatar_url)?'<img class="application-avatar-preview" loading="lazy" src="'+esc(a.avatar_url)+'" alt="تصویر پروفایل '+esc(a.display_name||a.full_name)+'">':"")+'<p>نام نمایشی: '+esc(a.display_name||a.full_name)+' · پروفایل: '+esc(a.avatar_emoji||"")+(a.avatar_url?'<a target="_blank" rel="noopener noreferrer" href="'+esc(a.avatar_url)+'">مشاهده تصویر ↗</a>':"")+'</p>'+
         '<p>تلفن: '+esc(a.phone)+' · روبیکا: '+esc(a.rubika_id)+' · سن: '+esc(a.age||"—")+' · شهر: '+esc(a.city||"—")+'</p>'+
         '<p>علاقه‌مندی: '+esc(a.course)+'</p><p>'+esc(a.message||"")+'</p>'+
         (links?'<p class="sample-links">'+links+'</p>':'<p class="hint">نمونه‌کاری ثبت نشده است.</p>')+
