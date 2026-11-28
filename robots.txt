@@ -7,11 +7,16 @@ Sitemap: https://abbasali-code.github.io/khial_honar/sitemap.xml
 
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /student.html
 User-agent: ChatGPT-User
 Allow: /
+Disallow: /student.html
 User-agent: Claude-SearchBot
 Allow: /
+Disallow: /student.html
 User-agent: Claude-User
 Allow: /
+Disallow: /student.html
 User-agent: PerplexityBot
 Allow: /
+Disallow: /student.html
