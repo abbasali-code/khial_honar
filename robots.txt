@@ -1,0 +1,17 @@
+# Khial Honar public website crawl policy
+User-agent: *
+Allow: /
+
+# Student workspace is intentionally noindex; do not block it here.
+Sitemap: https://abbasali-code.github.io/khial_honar/sitemap.xml
+
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: Claude-SearchBot
+Allow: /
+User-agent: Claude-User
+Allow: /
+User-agent: PerplexityBot
+Allow: /

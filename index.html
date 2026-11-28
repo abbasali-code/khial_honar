@@ -1,16 +1,28 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl" class="font-pending">
+<html lang="fa-IR" dir="rtl" class="font-pending">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" id="metaDesc" content="خیال هنر؛ طراحی لوگو، لوگوتایپ و تایپوگرافی فارسی و لاتین. نمونه‌کارهای مینیمال، فایل‌های برداری SVG و AI و گفتگوی شفاف از ایده تا تحویل فایل نهایی.">
 <meta name="robots" id="metaRobots" content="index, follow, max-image-preview:large">
 <meta name="author" content="خیال هنر">
-<link rel="canonical" href="https://www.example.com/">
+<meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="color-scheme" content="light">
+<link rel="manifest" href="./site.webmanifest">
+<link rel="alternate" type="text/plain" href="./llms.txt" title="LLM information">
+<meta property="og:image" content="https://abbasali-code.github.io/khial_honar/og-image.svg">
+<meta property="og:image:type" content="image/svg+xml">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="هویت بصری خیال هنر؛ استودیو طراحی لوگو و تایپوگرافی">
+<meta name="twitter:image" content="https://abbasali-code.github.io/khial_honar/og-image.svg">
+<meta name="twitter:image:alt" content="هویت بصری خیال هنر">
+<link rel="canonical" href="https://abbasali-code.github.io/khial_honar/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="خیال هنر">
 <meta property="og:locale" content="fa_IR">
-<meta property="og:url" id="ogUrl" content="https://www.example.com/">
+<meta property="og:url" id="ogUrl" content="https://abbasali-code.github.io/khial_honar/">
 <meta property="og:title" id="ogTitle" content="خیال هنر | طراحی لوگو و تایپوگرافی">
 <meta property="og:description" id="ogDesc" content="طراحی لوگو، لوگوتایپ و تایپوگرافی فارسی و لاتین.">
 <meta name="twitter:card" content="summary_large_image">
@@ -22,19 +34,19 @@
   "@graph": [
     {
       "@type": "WebSite",
-      "@id": "https://www.example.com/#website",
-      "url": "https://www.example.com/",
+      "@id": "https://abbasali-code.github.io/khial_honar/#website",
+      "url": "https://abbasali-code.github.io/khial_honar/",
       "name": "خیال هنر",
       "inLanguage": "fa-IR"
     },
     {
       "@type": ["ProfessionalService", "Organization"],
-      "@id": "https://www.example.com/#business",
+      "@id": "https://abbasali-code.github.io/khial_honar/#business",
       "name": "خیال هنر",
-      "url": "https://www.example.com/",
+      "url": "https://abbasali-code.github.io/khial_honar/",
       "description": "طراحی لوگو، لوگوتایپ و تایپوگرافی فارسی و لاتین",
-      "logo": "https://www.example.com/logo.png",
-      "image": "https://www.example.com/og-image.jpg",
+      "logo": "https://abbasali-code.github.io/khial_honar/favicon.svg",
+      "image": "https://abbasali-code.github.io/khial_honar/og-image.svg",
       "inLanguage": "fa-IR",
       "knowsLanguage": ["fa", "en"],
       "serviceType": ["طراحی لوگو", "لوگوتایپ", "تایپوگرافی"],
@@ -75,6 +87,9 @@
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+.skip-link{position:fixed;top:12px;right:12px;z-index:10000;transform:translateY(-160%);padding:10px 16px;border-radius:10px;background:#342b43;color:#fff;font-weight:700;box-shadow:0 5px 20px #0002}
+.skip-link:focus{transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 html.font-pending #siteView { visibility: hidden; }
 body {
     font-weight: 500;
@@ -1067,6 +1082,7 @@ body.mobile-nav-open{overflow:hidden;overscroll-behavior:none}\nhtml.scroll-reve
 </style>
 </head>
 <body>
+<a class="skip-link" href="#mainContent">رفتن به محتوای اصلی</a>
 <div id="siteLoader" role="status" aria-label="در حال بارگذاری سایت">
   <div class="sk-wrap">
     <div class="sk-header">
@@ -1105,7 +1121,7 @@ body.mobile-nav-open{overflow:hidden;overscroll-behavior:none}\nhtml.scroll-reve
 <div class="mobile-nav-backdrop" id="mobileNavBackdrop" hidden></div>
 <aside class="mobile-nav-drawer" id="mobileNavDrawer" aria-label="منوی اصلی موبایل" aria-hidden="true"><div class="mobile-nav-heading"><span>منوی سایت</span><button type="button" id="mobileNavClose" aria-label="بستن منو">×</button></div></aside>
 
-<main>
+<main id="mainContent">
 
 <!-- ===== صفحه‌ی اصلی ===== -->
 <section class="page" data-page="top" id="top">
