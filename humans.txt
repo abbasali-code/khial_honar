@@ -1,0 +1,10 @@
+/* TEAM */
+  Project: Khial Honar
+  Language: Persian (fa-IR)
+  Website: https://abbasali-code.github.io/khial_honar/
+
+/* SITE */
+  Standards: HTML, CSS, JavaScript
+  Hosting: GitHub Pages
+  Backend: Supabase
+  Accessibility: Semantic HTML, keyboard focus, reduced motion
