@@ -1,0 +1,20 @@
+{
+  "name": "خیال هنر | استودیو طراحی",
+  "short_name": "خیال هنر",
+  "description": "استودیو طراحی لوگو، لوگوتایپ و تایپوگرافی فارسی و لاتین",
+  "lang": "fa-IR",
+  "dir": "rtl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#EEE9FF",
+  "theme_color": "#9274CF",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
